@@ -14,7 +14,7 @@ export class Guard implements CanActivate {
             return true;
         }
         // not logged in so redirect to login page
-        this.router.navigate(['/browse/stream']);
+        this.router.navigate(['/stream']);
         return false;
     }
 }

@@ -62,5 +62,6 @@ export class Auth {
     localStorage.removeItem('profile');
     localStorage.removeItem('access_token');
     this.userProfile = undefined;
+    this.router.navigateByUrl('/stream');
   };
 }

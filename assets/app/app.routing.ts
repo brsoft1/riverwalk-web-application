@@ -6,33 +6,13 @@ import {Guard}                      from "./services/guard.service";
 import { PublicLayoutComponent }    from './layouts/public-layout.component';
 import { SecureLayoutComponent }    from './layouts/secure-layout.component';
 
+import { STREAM_ROUTES }            from "./stream/stream.routes";
+import { PROFILE_ROUTES }           from "./profile/profile.routes";
+
 const APP_ROUTES: Routes = [
-    {
-        path: 'profile',
-        component: SecureLayoutComponent,
-        data: {
-            title: 'Secure Views'
-        },
-        children: [
-            {
-                path: 'Profile',
-                loadChildren: 'profile/profile.module#ProfileModule'
-            }
-        ]
-    },
-    {
-        path: '',
-        component: PublicLayoutComponent,
-        data: {
-            title: 'Public Views'
-        },
-        children: [
-            {
-                path: 'stream',
-                loadChildren: 'stream/stream.module#StreamModule',
-            }
-        ]
-    }
+    { path: '', redirectTo: '/stream', pathMatch: 'full', },
+    { path: '', component: PublicLayoutComponent, data: { title: 'Public Views' }, children: STREAM_ROUTES },
+    { path: '', component: SecureLayoutComponent, canActivate: [Guard], data: { title: 'Secure Views' }, children: PROFILE_ROUTES }
 ];
 
 
