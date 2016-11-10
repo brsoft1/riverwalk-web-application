@@ -7,7 +7,7 @@ declare var Auth0Lock: any;
 
 var options = {
     theme: {
-    logo: '../assets/img/logo.png',
+    logo: '/img/logo.png',
     primaryColor: '#779476'
     },
     languageDictionary: {
@@ -26,12 +26,12 @@ export class Auth {
       localStorage.setItem('access_token', authResult.idToken);
       this.lock.getProfile(authResult.idToken, (error: any, profile: any) => {
         if (error) {
-          console.log('This did not work!');
+          console.log(error);
           return;
         }
         localStorage.setItem('profile', JSON.stringify(profile));
         this.userProfile = profile;
-        this.router.navigateByUrl('/profile');
+        this.router.navigateByUrl('/overview');
       });
       this.lock.hide();
     });
@@ -62,6 +62,6 @@ export class Auth {
     localStorage.removeItem('profile');
     localStorage.removeItem('access_token');
     this.userProfile = undefined;
-    this.router.navigateByUrl('/stream');
+    this.router.navigateByUrl('/home');
   };
 }
