@@ -1,10 +1,14 @@
-# MD- Recruit
+# Riverwalk-Web-Application
 
 A modern credit repair website with credit monitoring services
 
 ## Built With
 
-* Angular - Angular 2
+* Angular 2 - 2.1.1
+* Node.js - 6.7.0
+* Express - 4.14.0
+* PG npm - 6.1.0
+* Postgres System - 9.6
 
 ## Development Environment
 
@@ -26,12 +30,12 @@ No Contributing
 
 ## License
 
-This product is owned by Wuno, Inc. and Riverwalk
+This product is owned by Wuno, Inc. 
 
 ## Acknowledgments
 
 * Special thanks to Wuno, Inc. devs
 
 ## Development server
-Run `webpack` then `npm start` for a dev server. Navigate to `http://localhost:3000/`.
+Run `webpack` then `npm start` for a dev server. Navigate to `http://localhost:4200/`.
 
