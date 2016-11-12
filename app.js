@@ -10,13 +10,7 @@ var bodyParser = require('body-parser');
 var authors = require('./controllers/authors');
 var books = require('./controllers/books');
 
-var appRoutes = require('./routes/app');
-
 var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -31,8 +25,6 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
     next();
 });
-
-app.use('/', appRoutes);
 
 // API Endpoints
 app.get('/authors', authors.index);

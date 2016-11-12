@@ -1,6 +1,6 @@
 module.exports = {
     development: {
-    url: 'postgres://postgres:PASSWORD@localhost:5432/riverwalk',
+    url: 'postgres://postgres:TEST@localhost:5432/riverwalk',
     dialect: 'postgres',
     dialectOptions: {
         ssl: false
@@ -48,7 +48,7 @@ module.exports = {
     }
   },
     test: {
-    url: process.env.DATABASE_URL || 'postgres://postgres:PASSWORD@localhost:5432/riverwalk',
+    url: process.env.DATABASE_URL || 'postgres://postgres:TEST@localhost:5432/riverwalk',
     dialect: 'postgres',
     dialectOptions: {
         ssl: false
