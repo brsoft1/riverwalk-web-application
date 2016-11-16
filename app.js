@@ -5,19 +5,24 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var appRoutes = require('./routes/index');
 // api controllers
 var authors = require('./controllers/authors');
 var books = require('./controllers/books');
+var books = require('./controllers/address');
 
 var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'public'));
+app.set('view engine', 'hbs');
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -26,17 +31,8 @@ app.use(function (req, res, next) {
     next();
 });
 
-// API Endpoints
-app.get('/authors', authors.index);
-app.get('/authors/:id', authors.show);
-app.post('/authors', authors.create);
-app.put('/authors', authors.update);
-app.delete('/authors', authors.delete);
-
-app.get('/books', books.index);
-app.get('/books/:id', books.show);
-app.post('/books', books.create);
-app.delete('/books', books.delete);
+// Route app to index.html and hand off to angular2
+app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -3,6 +3,7 @@ import { NgModule }                         from '@angular/core';
 import { BrowserModule }                    from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule }                       from "@angular/http";
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 // Routing for root level
 import { routing }                          from "./app.routing";
@@ -103,7 +104,7 @@ import { LockAccountComponent }             from './secure/lock-account.componen
     ],
     providers: [ 
     Guard,
-    Auth 
+    Auth
     ],
     bootstrap: [AppComponent]
 })
