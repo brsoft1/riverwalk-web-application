@@ -10,6 +10,10 @@ var config = {
 };
 var pool = new pg.Pool(config);
 
+function retrieveUser() {
+
+}
+
 module.exports = {
     addAddress: function(req, res) {
         pool.connect(function(err, client, done) {
@@ -36,16 +40,21 @@ module.exports = {
                 if (err) {
                     return console.error('error fetching client from pool', err);
                 } // end of error catch while creating pool connection
-                var userValidation = client.query("SELECT * FROM user WHERE email=" + req.body.email + " + ");
-                // create the query
-                userValidation.on("row", function(row, result) {
-                    result.addRow(row);
+                var emailCheck = "SELECT id from public.user WHERE email=" + req.body.email;
+                var emailInsert = "insert into public.user (user_auth_level,email,account_locked,contract) " +
+                    "values ('1','" + req.body.email + "','false','false')"
+                client.query(emailCheck, function(err, result) {
+                    if (err) {
+                        return console.error(err.message);
+                    }
+
                 });
-                userValidation.on("end", function(result) {
-                    client.end();
-                    res.send(JSON.stringify(result));
-                    res.end();
-                }); // handle the query 
+                client.query(emailInsert, function(err, result) {
+                    if (err) {
+                        return console.error(err.message);
+                    }
+
+                });
                 done(); // release the client back to the pool
             }); // end of pool connection
             pool.on('error', function(err, client) {
