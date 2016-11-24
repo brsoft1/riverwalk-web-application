@@ -42,11 +42,8 @@ module.exports = {
                 // should return response error like 
                 return res.status(500).send();
             }
-            // Trying to figureout how to use parameterized queries to protect against sql injection
-            // var emailCheck = "SELECT id from public.user WHERE email=$1";
-            // var emailValue = ["'" + req.body.email + "'"];
-            var emailCheck = "SELECT id from public.user WHERE email='" + req.body.email + "'";
-            client.query(emailCheck, function(err, result) {
+            var emailCheck = "SELECT id from public.user WHERE email=$1";
+            client.query(emailCheck, [req.body.email], function(err, result) {
                 if (err) {
                     console.error(err);
                     res.status(500).send();
@@ -58,8 +55,8 @@ module.exports = {
                     return done(); // always close connection
                 } else {
                     var emailInsert = "insert into public.user (user_auth_level, email, account_locked, contract) " +
-                        "values ('1','" + req.body.email + "','false','false') RETURNING *"
-                    client.query(emailInsert, function(err, result) {
+                        "values ('1', $1,'false','false') RETURNING *"
+                    client.query(emailInsert, [req.body.email], function(err, result) {
                         if (err) {
                             console.error(err);
                             res.status(500).send();
