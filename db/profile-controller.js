@@ -36,29 +36,48 @@ module.exports = {
     }, // End addAddress function
 
     checkRegister: function(req, res) {
-            pool.connect(function(err, client, done) {
+        pool.connect(function(err, client, done) {
+            if (err) {
+                console.error(err);
+                // should return response error like 
+                return res.status(500).send();
+            }
+            // Trying to figureout how to use parameterized queries to protect against sql injection
+            // var emailCheck = "SELECT id from public.user WHERE email=$1";
+            // var emailValue = ["'" + req.body.email + "'"];
+            var emailCheck = "SELECT id from public.user WHERE email='" + req.body.email + "'";
+            client.query(emailCheck, function(err, result) {
                 if (err) {
-                    return console.error('error fetching client from pool', err);
-                } // end of error catch while creating pool connection
-                var emailCheck = "SELECT id from public.user WHERE email=" + req.body.email;
-                var emailInsert = "insert into public.user (user_auth_level,email,account_locked,contract) " +
-                    "values ('1','" + req.body.email + "','false','false')"
-                client.query(emailCheck, function(err, result) {
-                    if (err) {
-                        return console.error(err.message);
-                    }
+                    console.error(err);
+                    res.status(500).send();
+                    return done(); // always close connection
+                }
+                if (result.rowCount > 0) {
+                    let user = result.rows[0]
+                        // return your user
+                    return done(); // always close connection
+                } else {
+                    var emailInsert = "insert into public.user (user_auth_level, email, account_locked, contract) " +
+                        "values ('1','" + req.body.email + "','false','false') RETURNING *"
+                    client.query(emailInsert, function(err, result) {
+                        if (err) {
+                            console.error(err);
+                            res.status(500).send();
+                            return done(); // always close connection
+                        } else {
+                            if (result.rowCount > 0) {
+                                let user = result.rows[0]
+                                    // return your user
+                                return done(); // always close connection
+                            }
+                        }
 
-                });
-                client.query(emailInsert, function(err, result) {
-                    if (err) {
-                        return console.error(err.message);
-                    }
-
-                });
-                done(); // release the client back to the pool
-            }); // end of pool connection
-            pool.on('error', function(err, client) {
-                console.error('idle client error', err.message, err.stack)
-            }); // handle any error with the pool
-        } // End checkRegister function
+                    });
+                }
+            })
+        })
+        pool.on('error', function(err, client) {
+            console.error('idle client error', err.message, err.stack)
+        });
+    }
 };
