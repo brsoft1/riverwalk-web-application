@@ -1,15 +1,14 @@
 export class Personal {
   constructor(
-    public username: string,
     public email: string,
-    public firstName: string,
-    public middlename: string,
-    public lastname: string,
+    public first_name: string,
+    public middle_name: string,
+    public last_name: string,
     public dob: string,
-    public mobilePhone: string,
-    public homePhone: string,
-    public businessPhone: string,
-    public faxNumber: string,
+    public mobile_phone: string,
+    public home_phone: string,
+    public business_phone: string,
+    public fax_number: string,
     public ssn: string
   ) {  }
 }

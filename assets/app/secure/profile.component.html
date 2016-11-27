@@ -35,52 +35,43 @@
                             </div>
                             <div class="card-block">
                                 <div class="row">
-                                    <div class="form-group col-sm-12 col-md-6">
-                                        <label for="username">Username</label>
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-user"></i>
-                  </span>
-                                            <input type="text" class="form-control" placeholder="Enter username" id="username" [(ngModel)]="personal.username" name="username" required #username="ngModel">
-                                        </div>
-                                        <div [hidden]="username.valid || username.pristine" class="alert alert-danger">Username is required</div>
-                                    </div>
-                                    <div class="form-group col-sm-12 col-md-6">
+                                    <div class="form-group col-sm-12 col-md-12">
                                         <label for="email">Email</label>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-envelope"></i>
                   </span>
-                                            <input type="text" class="form-control" placeholder="Enter email" id="email" [(ngModel)]="personal.email" name="email" required #email="ngModel">
+                                            <input type="text" class="form-control" placeholder="Enter email" id="email" [(ngModel)]="personal.email" name="email" #email="ngModel">
                                         </div>
                                         <div [hidden]="email.valid || email.pristine" class="alert alert-danger">Email is required</div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-sm-12 col-md-4">
-                                        <label for="firstName">First Name</label>
+                                        <label for="first_name">First Name</label>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                            <input type="text" class="form-control" placeholder="Enter first name" id="firstName" [(ngModel)]="personal.firstName" name="firstName" required #firstName="ngModel">
+                                            <input type="text" class="form-control" placeholder="Enter first name" id="first_name" [(ngModel)]="personal.first_name" name="first_name" #first_name="ngModel">
                                         </div>
-                                        <div [hidden]="firstName.valid || firstName.pristine" class="alert alert-danger">First name is required</div>
+                                        <div [hidden]="first_name.valid || first_name.pristine" class="alert alert-danger">First name is required</div>
                                     </div>
                                     <div class="form-group col-sm-12 col-md-4">
-                                        <label for="middleName">Middle Name</label>
+                                        <label for="middle_name">Middle Name</label>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                            <input type="text" class="form-control" placeholder="Enter middle name" id="middleName" [(ngModel)]="personal.middleName" name="middleName" required #middleName="ngModel">
+                                            <input type="text" class="form-control" placeholder="Enter middle name" id="middle_name" [(ngModel)]="personal.middle_name" name="middle_name" #middle_name="ngModel">
                                         </div>
-                                        <div [hidden]="middleName.valid || middleName.pristine" class="alert alert-danger">Middle name is required</div>
+                                        <div [hidden]="middle_name.valid || middle_name.pristine" class="alert alert-danger">Middle name is required</div>
                                     </div>
                                     <div class="form-group col-sm-12 col-md-4">
-                                        <label for="lastName">Last Name</label>
+                                        <label for="last_name">Last Name</label>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                            <input type="text" class="form-control" placeholder="Enter last name" id="lastName" [(ngModel)]="personal.lastName" name="lastName" required #lastName="ngModel">
+                                            <input type="text" class="form-control" placeholder="Enter last name" id="last_name" [(ngModel)]="personal.last_name" name="last_name" #last_name="ngModel">
                                         </div>
-                                        <div [hidden]="lastName.valid || lastName.pristine" class="alert alert-danger">Last name is required</div>
+                                        <div [hidden]="last_name.valid || last_name.pristine" class="alert alert-danger">Last name is required</div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -89,58 +80,53 @@
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-birthday-cake"></i>
                   </span>
-                                            <input type="date" class="form-control" placeholder="Enter your birth date" id="dob" [(ngModel)]="personal.dob" name="dob" required #dob="ngModel">
+                                            <input type="date" class="form-control" placeholder="Enter your birth date" id="dob" [(ngModel)]="personal.dob" name="dob" #dob="ngModel">
                                         </div>
                                         <div [hidden]="dob.valid || dob.pristine" class="alert alert-danger">DOB is required</div>
                                     </div>
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="ssn">Social Security Number</label>
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-circle-o-notch"></i>
-                  </span>
-                                            <input type="text" class="form-control" placeholder=" Enter Social Security Number" id="ssn" [(ngModel)]="personal.ssn" name="ssn" required #ssn="ngModel">
+                                            <span class="input-group-addon"><i class="fa fa-circle-o-notch"></i></span>
+                                            <input type="text" class="form-control" placeholder=" Enter Social Security Number" id="ssn" [(ngModel)]="personal.ssn" name="ssn" #ssn="ngModel">
                                         </div>
                                         <div [hidden]="ssn.valid || ssn.pristine" class="alert alert-danger">Social security number is required</div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label for="mobilePhone">Mobile Phone</label>
+                                        <label for="mobile_phone">Mobile Phone</label>
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-mobile"></i>
-                  </span>
-                                            <input type="text" class="form-control" placeholder="Enter Mobile Phone" id="mobilePhone" [(ngModel)]="personal.mobilePhone" name="mobilePhone" required #mobilePhone="ngModel">
+                                            <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                                            <input type="text" class="form-control" placeholder="Enter Mobile Phone" id="mobile_phone" [(ngModel)]="personal.mobile_phone" name="mobile_phone" #mobile_phone="ngModel">
                                         </div>
-                                        <div [hidden]="mobilePhone.valid || mobilePhone.pristine" class="alert alert-danger">Mobile phone is required</div>
+                                        <div [hidden]="mobile_phone.valid || mobile_phone.pristine" class="alert alert-danger">Mobile phone is required</div>
                                     </div>
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label for="homePhone">Home Phone</label>
+                                        <label for="home_phone">Home Phone</label>
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-phone"></i>
-                  </span>
-                                            <input type="text" class="form-control" placeholder="Enter Home Phone" id="homePhone" [(ngModel)]="personal.homePhone" name="homePhone" required #homePhone="ngModel">
+                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                            <input type="text" class="form-control" placeholder="Enter Home Phone" id="home_phone" [(ngModel)]="personal.home_phone" name="home_phone" #home_phone="ngModel">
                                         </div>
-                                        <div [hidden]="homePhone.valid || homePhone.pristine" class="alert alert-danger">Home phone is required</div>
+                                        <div [hidden]="home_phone.valid || home_phone.pristine" class="alert alert-danger">Home phone is required</div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label for="businessPhone">Business Phone</label>
+                                        <label for="business_phone">Business Phone</label>
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-phone-square"></i>
-                  </span>
-                                            <input type="text" class="form-control" placeholder="Enter Business Phone" id="businessPhone" [(ngModel)]="personal.businessPhone" name="businessPhone" required #businessPhone="ngModel">
+                                            <span class="input-group-addon"><i class="fa fa-phone-square"></i></span>
+                                            <input type="text" class="form-control" placeholder="Enter Business Phone" id="business_phone" [(ngModel)]="personal.business_phone" name="business_phone" #business_phone="ngModel">
                                         </div>
-                                        <div [hidden]="businessPhone.valid || businessPhone.pristine" class="alert alert-danger">Business phone is required</div>
+                                        <div [hidden]="business_phone.valid || business_phone.pristine" class="alert alert-danger">Business phone is required</div>
                                     </div>
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label for="faxNumber">Fax Number</label>
+                                        <label for="fax_number">Fax Number</label>
                                         <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-fax"></i>
-                  </span>
-                                            <input type="text" class="form-control" placeholder="Enter Fax Number" id="faxNumber" [(ngModel)]="personal.faxNumber" name="faxNumber" required #faxNumber="ngModel">
+                                            <span class="input-group-addon"><i class="fa fa-fax"></i></span>
+                                            <input type="text" class="form-control" placeholder="Enter Fax Number" id="fax_number" [(ngModel)]="personal.fax_number" name="fax_number" #fax_number="ngModel">
                                         </div>
-                                        <div [hidden]="faxNumber.valid || faxNumber.pristine" class="alert alert-danger">Fax number is required</div>
+                                        <div [hidden]="fax_number.valid || fax_number.pristine" class="alert alert-danger">Fax number is required</div>
                                     </div>
                                 </div>
                             </div>
@@ -222,28 +208,23 @@
 <div [hidden]="!personalSubmitted">
     <h2>You submitted the following personal data:</h2>
     <div class="row">
-        <div class="col-xs-3">Username</div>
-        <div class="col-xs-9 pull-left">{{ personal.username }}</div>
-    </div>
-    <br>
-    <div class="row">
         <div class="col-xs-3">Email</div>
         <div class="col-xs-9 pull-left">{{ personal.email }}</div>
     </div>
     <br>
     <div class="row">
         <div class="col-xs-3">First Name</div>
-        <div class="col-xs-9 pull-left">{{ personal.firstName }}</div>
+        <div class="col-xs-9 pull-left">{{ personal.first_name }}</div>
     </div>
     <br>
     <div class="row">
         <div class="col-xs-3">Middle Name</div>
-        <div class="col-xs-9 pull-left">{{ personal.middleName }}</div>
+        <div class="col-xs-9 pull-left">{{ personal.middle_name }}</div>
     </div>
     <br>
     <div class="row">
         <div class="col-xs-3">Last Name</div>
-        <div class="col-xs-9 pull-left">{{ personal.lastName }}</div>
+        <div class="col-xs-9 pull-left">{{ personal.last_name }}</div>
     </div>
     <br>
     <div class="row">
@@ -258,22 +239,22 @@
     <br>
     <div class="row">
         <div class="col-xs-3">Mobile Phone</div>
-        <div class="col-xs-9 pull-left">{{ personal.mobilePhone }}</div>
+        <div class="col-xs-9 pull-left">{{ personal.mobile_phone }}</div>
     </div>
     <br>
     <div class="row">
         <div class="col-xs-3">Home Phone</div>
-        <div class="col-xs-9 pull-left">{{ personal.homePhone }}</div>
+        <div class="col-xs-9 pull-left">{{ personal.home_phone }}</div>
     </div>
     <br>
     <div class="row">
         <div class="col-xs-3">Business Phone</div>
-        <div class="col-xs-9 pull-left">{{ personal.businessPhone }}</div>
+        <div class="col-xs-9 pull-left">{{ personal.business_phone }}</div>
     </div>
     <br>
     <div class="row">
         <div class="col-xs-3">Fax Number</div>
-        <div class="col-xs-9 pull-left">{{ personal.faxNumber }}</div>
+        <div class="col-xs-9 pull-left">{{ personal.fax_umber }}</div>
     </div>
     <br>
     <button class="btn btn-default" (click)="personalSubmitted=false">Edit</button>

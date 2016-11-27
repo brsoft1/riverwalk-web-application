@@ -2,7 +2,7 @@ import { Injectable }                      from '@angular/core';
 import { tokenNotExpired, JwtHelper }      from 'angular2-jwt';
 import { Router }                          from '@angular/router';
 import { myConfig }                        from './auth.config';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers }         from '@angular/http';
 import { User }                            from '../models/user';
 
 declare var Auth0Lock: any;

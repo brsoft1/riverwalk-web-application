@@ -14,10 +14,22 @@ export class ProfileComponent implements OnInit {
     constructor( private router: Router, private auth: Auth, private http: Http  ) { }
 
 // Address form 
-	personal = new Personal('', '', '', '', '', '', '', '', '', '', '');
-	personalSubmitted = false;
-  	personalSubmit() { this.personalSubmitted = true; }
-  	personalActive = true;
+	personal = new Personal('', '', '', '', '', '', '', '', '', '');
+	
+  personalSubmitted = false;
+  	
+    personalSubmit() { 
+      this.personalSubmitted = true;
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      return this.http
+      .post('http://localhost:4200/api/updateProfile', 
+        this.personal, 
+        { headers: headers })
+      .subscribe(); 
+    }
+  	
+    personalActive = true;
 
 // Address form 
 	address = new Address('', '', '', '');
