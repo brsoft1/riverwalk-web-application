@@ -40,6 +40,11 @@ app.use(function(req, res, next) {
 app.post('/api/addAddress', function(req, res) {
     dbProfile.addAddress(req, res);
 });
-
+app.post('/api/checkRegister', function(req, res) {
+    dbProfile.checkRegister(req, res);
+});
+app.post('/api/updateProfile', function(req, res) {
+    dbProfile.updateProfile(req, res);
+});
 
 module.exports = app;

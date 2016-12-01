@@ -14,11 +14,10 @@ export class ProfileComponent implements OnInit {
     constructor( private router: Router, private auth: Auth, private http: Http  ) { }
 
 // Address form 
-	personal = new Personal('', '', '', '', '', '', '', '', '', '');
-	
+	personal = new Personal(this.auth.user.email, this.auth.user.first_name, this.auth.user.middle_name, this.auth.user.last_name, '', '', '', '', '', '');
   personalSubmitted = false;
   	
-    personalSubmit() { 
+  private personalSubmit() { 
       this.personalSubmitted = true;
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
@@ -26,13 +25,17 @@ export class ProfileComponent implements OnInit {
       .post('http://localhost:4200/api/updateProfile', 
         this.personal, 
         { headers: headers })
-      .subscribe(); 
+      .map((res:Response) => res.json())
+      .subscribe((res)=>{
+            //do something with the response here
+            console.log(res);
+        });
     }
   	
     personalActive = true;
 
 // Address form 
-	address = new Address('', '', '', '');
+	address = new Address(this.auth.user.email, '', '', '', '');
 	
   addressSubmitted = false;
   	

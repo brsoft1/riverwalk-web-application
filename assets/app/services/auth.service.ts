@@ -4,6 +4,7 @@ import { Router }                          from '@angular/router';
 import { myConfig }                        from './auth.config';
 import { Http, Response, Headers }         from '@angular/http';
 import { User }                            from '../models/user';
+import { LogReg }                          from '../models/logreg';
 
 declare var Auth0Lock: any;
 
@@ -22,10 +23,12 @@ var options = {
 export class Auth {
   lock = new Auth0Lock(myConfig.clientID, myConfig.domain, options, {});
   userProfile: Object;
+  logreg: LogReg;
   user: User;
 
   constructor(private router: Router, private http: Http ) {
     this.userProfile = JSON.parse(localStorage.getItem('profile'));
+    this.user = JSON.parse(localStorage.getItem('user'));
     this.lock.on('authenticated', (authResult: any) => {
       localStorage.setItem('access_token', authResult.idToken);
       this.lock.getProfile(authResult.idToken, (error: any, profile: any) => {
@@ -34,13 +37,12 @@ export class Auth {
           return;
         }
         
-        // create users
-        this.user = new User(profile.email);   
-        this.checkRegister(this.user).subscribe((res)=>{
-            //do something with the response here
-            console.log(res);
+        // Login Or Register User On Our Server
+        this.logreg = new LogReg(profile.email);   
+        this.checkRegister(this.logreg).subscribe((res)=>{
+            this.user = new User(res.id, res.user_auth_level, res.employee_owner, res.affiliate_owner, res.created_on, res.email, res.first_name, res.middle_name, res.last_name, res.dob, res.mobile_phone, res.home_phone, res.business_phone, res.fax_number, res.ssn, res.street_address, res.city_address, res.state_address, res.zip_address, res.account_locked, res.contract);
+            localStorage.setItem('user', JSON.stringify(this.user));
         });
-
 
         localStorage.setItem('profile', JSON.stringify(profile));
         this.userProfile = profile;
@@ -50,8 +52,8 @@ export class Auth {
     });
   }
 
-  public checkRegister(User) {
-    let body =  JSON.stringify(this.user);
+  public checkRegister(LogReg) {
+    let body =  JSON.stringify(this.logreg);
     let headers = new Headers(); 
     headers.append('Content-Type', 'application/json');
       
