@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
       this.personalSubmitted = true;
       console.log('Personal Form Has Been Submitted');
       if (!this.personalForm.valid) {
-        alert("Personal Form Is Not Valid");
+          console.log('Personal Form Has Been Submitted but is not valid');
       } else {
         const user = new Personal(
             this.personalForm.value.email,
@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
             this.personalForm.value.fax_number,
             this.personalForm.value.ssn
         )
-        let headers = new Headers();
+          let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       return this.http
       .post('http://localhost:4200/api/updateProfile',
@@ -88,6 +88,7 @@ export class ProfileComponent implements OnInit {
             fax_number : new FormControl (null,Validators.required,Validators.pattern("/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/")),
             ssn : new FormControl (null,Validators.required,Validators.pattern("/^\d{3}-?\d{2}-?\d{4}$/")),
         })
+
     }
 }
 

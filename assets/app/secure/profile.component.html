@@ -25,7 +25,7 @@
             </div>
         </div>
         <!-- THIS IS THE PERSONAL DATA FORM -->
-        <form *ngIf="personalActive" (ngSubmit)="personalSubmit()" [formGroup]="personalForm" #personalForm="ngForm">
+        <form *ngIf="personalActive" (ngSubmit)="personalSubmit()" [formGroup]="personalForm">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="card card-inverse card-success">
@@ -39,9 +39,11 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-envelope"></i>
                   </span>
-                                        <input type="text" class="form-control" id="email" [(ngModel)]="personal.email" name="email" #email="ngModel" placeholder="{{personal.email}}" required readonly>
+                                        <input type="text" class="form-control" id="email" formControlName="email" placeholder="{{personal.email}}" required readonly>
                                     </div>
-                                    <div [hidden]="email.valid || email.pristine" class="alert alert-danger">Email is required</div>
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.email.valid && submitted ">
+                                        *Email is required.
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -50,27 +52,33 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                        <input type="text" class="form-control" placeholder="Enter first name" id="first_name" [(ngModel)]="personal.first_name" name="first_name" #first_name="ngModel" required>
+                                        <input type="text" class="form-control" placeholder="Enter first name" id="first_name" formControlName="first_name" required>
                                     </div>
-                                    <div [hidden]="first_name.valid || first_name.pristine" class="alert alert-danger">First name is required</div>
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.first_name.valid && submitted ">
+                                        *First Name is required.
+                                    </div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-4">
                                     <label for="middle_name">Middle Name</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                        <input type="text" class="form-control" placeholder="Enter middle name" id="middle_name" [(ngModel)]="personal.middle_name" name="middle_name" #middle_name="ngModel" required>
+                                        <input type="text" class="form-control" placeholder="Enter middle name" id="middle_name" formControlName="middle_name" required>
                                     </div>
-                                    <div [hidden]="middle_name.valid || middle_name.pristine" class="alert alert-danger">Middle name is required</div>
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.middle_name.valid && submitted ">
+                                        *Middle Name is required.
+                                    </div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-4">
                                     <label for="last_name">Last Name</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                        <input type="text" class="form-control" placeholder="Enter last name" id="last_name" [(ngModel)]="personal.last_name" name="last_name" #last_name="ngModel" required>
+                                        <input type="text" class="form-control" placeholder="Enter last name" id="last_name" formControlName="last_name" required>
                                     </div>
-                                    <div [hidden]="last_name.valid || last_name.pristine" class="alert alert-danger">Last name is required</div>
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.last_name.valid && submitted ">
+                                        *Last Name is required.
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -79,17 +87,21 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-birthday-cake"></i>
                   </span>
-                                        <input type="date" class="form-control" placeholder="Enter your birth date" id="dob" [(ngModel)]="personal.dob" name="dob" #dob="ngModel" required>
+                                        <input type="date" class="form-control" placeholder="Enter your birth date" id="dob" formControlName="dob" required>
                                     </div>
-                                    <div [hidden]="dob.valid || dob.pristine" class="alert alert-danger">DOB is required</div>
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.dob.valid && submitted ">
+                                        *DOB is required.
+                                    </div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-6">
                                     <label for="ssn">Social Security Number</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-circle-o-notch"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter SSN" id="ssn" [(ngModel)]="personal.ssn" name="ssn" #ssn="ngModel" required>
+                                        <input type="text" class="form-control" placeholder="Enter SSN" id="ssn" formControlName="ssn" required>
                                     </div>
-                                    <div [hidden]="ssn.valid || ssn.pristine" class="alert alert-danger">Social security number is required</div>
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.ssn.valid && submitted ">
+                                        *SSN is required.
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -97,15 +109,17 @@
                                     <label for="mobile_phone">Mobile Phone</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Mobile Phone" id="mobile_phone" [(ngModel)]="personal.mobile_phone" name="mobile_phone" #mobile_phone="ngModel" required>
+                                        <input type="text" class="form-control" placeholder="Enter Mobile Phone" id="mobile_phone" formControlName="mobile_phone" required>
                                     </div>
-                                    <div [hidden]="mobile_phone.valid || mobile_phone.pristine" class="alert alert-danger">Mobile phone is required</div>
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.mobile_phone.valid && submitted ">
+                                        *Mobile Phone is required.
+                                    </div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-6">
                                     <label for="home_phone">Home Phone</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Home Phone" id="home_phone" [(ngModel)]="personal.home_phone" name="home_phone" #home_phone="ngModel">
+                                        <input type="text" class="form-control" placeholder="Enter Home Phone" id="home_phone" formControlName="home_phone">
                                     </div>
                                 </div>
                             </div>
@@ -114,14 +128,14 @@
                                     <label for="business_phone">Business Phone</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-phone-square"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Business Phone" id="business_phone" [(ngModel)]="personal.business_phone" name="business_phone" #business_phone="ngModel">
+                                        <input type="text" class="form-control" placeholder="Enter Business Phone" id="business_phone" formControlName="business_phone">
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-6">
                                     <label for="fax_number">Fax Number</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fax"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Fax Number" id="fax_number" [(ngModel)]="personal.fax_number" name="fax_number" #fax_number="ngModel">
+                                        <input type="text" class="form-control" placeholder="Enter Fax Number" id="fax_number" formControlName="fax_number">
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +145,7 @@
                             <div [hidden]="!personalSubmitted">
                                 <h2>You Have Updated Your Personal Information:</h2>
                             </div>
-                            <button type="submit" class="btn btn-sm btn-danger btn-oj" [disabled]="!personalForm.form.valid"><i class="fa fa-dot-circle-o"></i> Update</button>
+                            <button type="submit" class="btn btn-sm btn-danger btn-oj"><i class="fa fa-dot-circle-o"></i> Update</button>
                         </div>
                     </div>
                 </div>
