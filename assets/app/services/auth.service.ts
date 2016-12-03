@@ -46,6 +46,7 @@ export class Auth {
 
         localStorage.setItem('profile', JSON.stringify(profile));
         this.userProfile = profile;
+        console.log(this.userProfile);
         this.router.navigateByUrl('/overview');
       });
       this.lock.hide();

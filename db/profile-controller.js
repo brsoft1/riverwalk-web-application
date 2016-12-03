@@ -49,30 +49,6 @@ pool.on('error', function(err, client) {
 });
 
 module.exports = {
-    addAddress: function(req, res) {
-        pool.connect(function(err, client, done) {
-            if (err) {
-                console.error(err);
-                // should return response error like 
-                return res.status(500).send();
-            }
-            var updateAddress = 'update public.user SET street_address = $1, city_address = $2, state_address = $3, zip_address =$4 WHERE email= $5';
-            client.query(updateAddress, [req.body.street_address, req.body.city_address, req.body.state_address, req.body.zip_address, req.body.email], function(err, result) {
-                if (err) {
-                    console.error(err);
-                    res.status(500).send();
-                    return done(); // always close connection
-                } else {
-                    res.send('Address has been updated!');
-                    return done(); // always close connection
-                }
-
-            });
-        })
-        pool.on('error', function(err, client) {
-            console.error('idle client error', err.message, err.stack)
-        });
-    },
     checkRegister: function(req, res) {
         pool.connect(function(err, client, done) {
             if (err) {
@@ -88,7 +64,9 @@ module.exports = {
                     return done(); // always close connection
                 }
                 if (result.rowCount > 0) {
-                    result.rows[0].ssn = decrypt(result.rows[0].ssn);
+                    if (result.rows[0].ssn) {
+                        result.rows[0].ssn = decrypt(result.rows[0].ssn);
+                    }
                     let user = result.rows[0];
                     res.send(user);
                     return done(); // always close connection
@@ -116,6 +94,30 @@ module.exports = {
             console.error('idle client error', err.message, err.stack)
         });
     },
+    addAddress: function(req, res) {
+        pool.connect(function(err, client, done) {
+            if (err) {
+                console.error(err);
+                // should return response error like 
+                return res.status(500).send();
+            }
+            var updateAddress = 'update public.user SET street_address = $1, city_address = $2, state_address = $3, zip_address =$4 WHERE email= $5';
+            client.query(updateAddress, [req.body.street_address, req.body.city_address, req.body.state_address, req.body.zip_address, req.body.email], function(err, result) {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send();
+                    return done(); // always close connection
+                } else {
+                    res.send('Address has been updated!');
+                    return done(); // always close connection
+                }
+
+            });
+        })
+        pool.on('error', function(err, client) {
+            console.error('idle client error', err.message, err.stack)
+        });
+    },
     updateProfile: function(req, res) {
         pool.connect(function(err, client, done) {
             if (err) {
@@ -133,7 +135,9 @@ module.exports = {
                     return done(); // always close connection
                 } else {
                     if (result.rowCount > 0) {
-                        result.rows[0].ssn = decrypt(result.rows[0].ssn);
+                        if (result.rows[0].ssn) {
+                            result.rows[0].ssn = decrypt(result.rows[0].ssn);
+                        }
                         let user = result.rows[0];
                         res.send(user);
                         // return your user

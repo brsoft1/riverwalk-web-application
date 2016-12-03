@@ -25,7 +25,7 @@
             </div>
         </div>
         <!-- THIS IS THE PERSONAL DATA FORM -->
-        <form *ngIf="personalActive" (ngSubmit)="personalSubmit()" #personalForm="ngForm">
+        <form *ngIf="personalActive" (ngSubmit)="personalSubmit()" [formGroup]="personalForm" #personalForm="ngForm">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="card card-inverse card-success">
