@@ -1,27 +1,18 @@
-var crypto = require('crypto'),
-    algorithm = 'aes-256-ctr',
-    password = 'PASSWORD';
 var pg = require('pg');
-var config = {
-    user: 'postgres',
-    database: 'riverwalk',
-    password: 'PASSWORD',
-    host: 'localhost',
-    port: 5432,
-    max: 10,
-    idleTimeoutMillis: 30000
-};
-var pool = new pg.Pool(config);
+var crypto = require('crypto');
+var config = require('./config');
+
+var pool = new pg.Pool(config.pgConfig);
 
 function encrypt(text) {
-    var cipher = crypto.createCipher(algorithm, password)
+    var cipher = crypto.createCipher(config.algorithm, config.password)
     var crypted = cipher.update(text, 'utf8', 'hex')
     crypted += cipher.final('hex');
     return crypted;
 }
 
 function decrypt(text) {
-    var decipher = crypto.createDecipher(algorithm, password)
+    var decipher = crypto.createDecipher(config.algorithm, config.password)
     var dec = decipher.update(text, 'hex', 'utf8')
     dec += decipher.final('utf8');
     return dec;
