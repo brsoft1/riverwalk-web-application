@@ -25,7 +25,7 @@
             </div>
         </div>
         <!-- THIS IS THE PERSONAL DATA FORM -->
-        <form *ngIf="personalActive" (ngSubmit)="personalSubmit()" [formGroup]="personalForm">
+        <form [formGroup]="personalForm" novalidate (ngSubmit)="save(personalForm.value, personalForm.valid)">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="card card-inverse card-success">
@@ -39,7 +39,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-envelope"></i>
                   </span>
-                                        <input type="text" class="form-control" id="email" formControlName="email" placeholder="{{personal.email}}" required readonly>
+                                        <input type="text" class="form-control" id="email" formControlName="email" placeholder="{{personal.email}}"readonly>
                                     </div>
                                     <div class="alert alert-danger" *ngIf="!personalForm.controls.email.valid && submitted ">
                                         *Email is required.
@@ -52,7 +52,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                        <input type="text" class="form-control" placeholder="Enter first name" id="first_name" formControlName="first_name" required>
+                                        <input type="text" class="form-control" placeholder="Enter first name" id="first_name" formControlName="first_name">
                                     </div>
                                     <div class="alert alert-danger" *ngIf="!personalForm.controls.first_name.valid && submitted ">
                                         *First Name is required.
@@ -63,7 +63,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                        <input type="text" class="form-control" placeholder="Enter middle name" id="middle_name" formControlName="middle_name" required>
+                                        <input type="text" class="form-control" placeholder="Enter middle name" id="middle_name" formControlName="middle_name">
                                     </div>
                                     <div class="alert alert-danger" *ngIf="!personalForm.controls.middle_name.valid && submitted ">
                                         *Middle Name is required.
@@ -74,7 +74,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                        <input type="text" class="form-control" placeholder="Enter last name" id="last_name" formControlName="last_name" required>
+                                        <input type="text" class="form-control" placeholder="Enter last name" id="last_name" formControlName="last_name">
                                     </div>
                                     <div class="alert alert-danger" *ngIf="!personalForm.controls.last_name.valid && submitted ">
                                         *Last Name is required.
@@ -87,7 +87,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-birthday-cake"></i>
                   </span>
-                                        <input type="date" class="form-control" placeholder="Enter your birth date" id="dob" formControlName="dob" required>
+                                        <input type="date" class="form-control" placeholder="Enter your birth date" id="dob" formControlName="dob">
                                     </div>
                                     <div class="alert alert-danger" *ngIf="!personalForm.controls.dob.valid && submitted ">
                                         *DOB is required.
@@ -97,7 +97,7 @@
                                     <label for="ssn">Social Security Number</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-circle-o-notch"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter SSN" id="ssn" formControlName="ssn" required>
+                                        <input type="text" class="form-control" placeholder="Enter SSN" id="ssn" formControlName="ssn">
                                     </div>
                                     <div class="alert alert-danger" *ngIf="!personalForm.controls.ssn.valid && submitted ">
                                         *SSN is required.
@@ -109,7 +109,7 @@
                                     <label for="mobile_phone">Mobile Phone</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Mobile Phone" id="mobile_phone" formControlName="mobile_phone" required>
+                                        <input type="text" class="form-control" placeholder="Enter Mobile Phone" id="mobile_phone" formControlName="mobile_phone">
                                     </div>
                                     <div class="alert alert-danger" *ngIf="!personalForm.controls.mobile_phone.valid && submitted ">
                                         *Mobile Phone is required.
@@ -145,7 +145,7 @@
                             <div [hidden]="!personalSubmitted">
                                 <h2>You Have Updated Your Personal Information:</h2>
                             </div>
-                            <button type="submit" class="btn btn-sm btn-danger btn-oj"><i class="fa fa-dot-circle-o"></i> Update</button>
+                            <button type="submit" [disabled]="!personalForm.valid" class="btn btn-sm btn-danger btn-oj"><i class="fa fa-dot-circle-o"></i> Update</button>
                         </div>
                     </div>
                 </div>
@@ -196,7 +196,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-4">
-                                    <label for="postal-code">Postal Code</label>
+                                    <label for="zip_address">Postal Code</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-street-view"></i>
                   </span>
