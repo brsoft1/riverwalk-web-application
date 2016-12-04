@@ -18,59 +18,59 @@ export class ProfileComponent implements OnInit {
     personalForm: FormGroup;
     personal = new Personal(this.auth.user.email, this.auth.user.first_name, this.auth.user.middle_name, this.auth.user.last_name, '', '', '', '', '', '');
 
-  private personalSubmit() {
-      this.personalSubmitted = true;
-      console.log('Personal Form Has Been Submitted');
-      if (!this.personalForm.valid) {
-          console.log('Personal Form Has Been Submitted but is not valid');
-      } else {
-        const user = new Personal(
-            this.personalForm.value.email,
-            this.personalForm.value.first_name,
-            this.personalForm.value.middle_name,
-            this.personalForm.value.last_name,
-            this.personalForm.value.dob,
-            this.personalForm.value.mobile_phone,
-            this.personalForm.value.home_phone,
-            this.personalForm.value.business_phone,
-            this.personalForm.value.fax_number,
-            this.personalForm.value.ssn
-        )
-          let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      return this.http
-      .post('http://localhost:4200/api/updateProfile',
-        this.personal,
-        { headers: headers })
-      .map((res:Response) => res.json())
-      .subscribe((res)=>{
-            //do something with the response here
-            console.log(res);
-        });
-      }
+    private personalSubmit() {
+        this.personalSubmitted = true;
+        console.log('Personal Form Has Been Submitted');
+        if (!this.personalForm.valid) {
+            console.log('Personal Form Has Been Submitted but is not valid');
+        } else {
+            const user = new Personal(
+                this.personalForm.value.email,
+                this.personalForm.value.first_name,
+                this.personalForm.value.middle_name,
+                this.personalForm.value.last_name,
+                this.personalForm.value.dob,
+                this.personalForm.value.mobile_phone,
+                this.personalForm.value.home_phone,
+                this.personalForm.value.business_phone,
+                this.personalForm.value.fax_number,
+                this.personalForm.value.ssn
+            )
+            let headers = new Headers();
+            headers.append('Content-Type', 'application/json');
+            return this.http
+                .post('http://localhost:4200/api/updateProfile',
+                    this.personal,
+                    { headers: headers })
+                .map((res:Response) => res.json())
+                .subscribe((res)=>{
+                    //do something with the response here
+                    console.log(res);
+                });
+        }
     }
 
     personalActive = true;
 
 // Address form
-	address = new Address(this.auth.user.email, '', '', '', '');
+    address = new Address(this.auth.user.email, '', '', '', '');
 
-  addressSubmitted = false;
+    addressSubmitted = false;
 
-     addressSubmit() {
-      this.addressSubmitted = true;
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      return this.http
-      .post('http://localhost:4200/api/addAddress',
-        this.address,
-        { headers: headers })
-      .subscribe();
+    addressSubmit() {
+        this.addressSubmitted = true;
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http
+            .post('http://localhost:4200/api/addAddress',
+                this.address,
+                { headers: headers })
+            .subscribe();
     }
 
-  	addressActive = true;
-  	states = ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
-    
+    addressActive = true;
+    states = ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
+
     ngOnInit() {
         this.personalForm = new FormGroup({
             email : new FormControl(null,[
