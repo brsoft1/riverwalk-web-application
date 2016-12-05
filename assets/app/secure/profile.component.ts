@@ -65,25 +65,43 @@ export class ProfileComponent implements OnInit {
             email : new FormControl(this.auth.user.email,Validators.required ),
             first_name: new FormControl(null,[
                 Validators.required,
-                Validators.pattern("^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,20}$")
+                Validators.pattern("^[a-zA-Zñáéíóúü']{1,30}$")
             ]),
             middle_name: new FormControl(null,[
                 Validators.required,
-                Validators.pattern("^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,20}$")
+                Validators.pattern("^[a-zA-Zñáéíóúü']{1,30}$")
             ]),
 
             last_name: new FormControl(null,[
                 Validators.required,
-                Validators.pattern("^[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]{1,20}$")
+                Validators.pattern("^[a-zA-Zñáéíóúü']{1,30}$")
             ]),
 
-            dob : new FormControl (null, Validators.required ),
-            mobile_phone: new FormControl(null,Validators.required ),
-            home_phone: new FormControl(null,Validators.required ),
+            dob : new FormControl (null, [
+                Validators.required,
+                Validators.pattern("[1][9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]|[2][0][0-9][0-9]-[0-9][0-9]-[0-9][0-9]")
+            ]),
+            mobile_phone: new FormControl(null, [
+                Validators.required,
+                Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
+            ]),
+            home_phone: new FormControl(null, [
+                Validators.required,
+                Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
+            ]),
 
-            business_phone: new FormControl(null,Validators.required ),
-            fax_number: new FormControl(null,Validators.required ),
-            ssn: new FormControl(null,Validators.required )
+            business_phone: new FormControl(null, [
+                Validators.required,
+                Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
+            ]),
+            fax_number: new FormControl(null, [
+                Validators.required,
+                Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
+            ]),
+            ssn: new FormControl(null, [
+                Validators.required,
+                Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
+            ])
         });
     }
 
