@@ -3,7 +3,7 @@ import { NgModule }                         from '@angular/core';
 import { BrowserModule }                    from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule }                       from "@angular/http";
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import {ToastyModule} from 'ng2-toasty';
 
 // Routing for root level
 import { routing }                          from "./app.routing";
@@ -100,11 +100,12 @@ import { LockAccountComponent }             from './secure/lock-account.componen
         ReactiveFormsModule,
         HttpModule,
         Ng2BootstrapModule,
-        ChartsModule
+        ChartsModule,
+        ToastyModule.forRoot()
     ],
     providers: [ 
-    Guard,
-    Auth
+        Guard,
+        Auth
     ],
     bootstrap: [AppComponent]
 })

@@ -41,7 +41,7 @@
                   </span>
                                         <input type="text" class="form-control" id="email" formControlName="email" placeholder="{{personal.email}}"readonly>
                                     </div>
-                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.email.valid && submitted ">
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.email.valid && personalForm.controls.email.dirty">
                                         *Email is required.
                                     </div>
                                 </div>
@@ -52,9 +52,9 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                        <input type="text" class="form-control" placeholder="Enter first name" id="first_name" formControlName="first_name">
+                                        <input (blur)="getValidate('*First Name Required', 'Use 1-30 letters to spell your name.')" type="text" class="form-control" placeholder="Enter first name" id="first_name" formControlName="first_name">
                                     </div>
-                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.first_name.valid && submitted ">
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.first_name.valid && personalForm.controls.first_name.dirty">
                                         *First Name is required.
                                     </div>
                                 </div>
@@ -63,9 +63,9 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                        <input type="text" class="form-control" placeholder="Enter middle name" id="middle_name" formControlName="middle_name">
+                                        <input (blur)="getValidate('*Middle Name Required', 'Use 1-30 letters to spell your name.')"  type="text" class="form-control" placeholder="Enter middle name" id="middle_name" formControlName="middle_name">
                                     </div>
-                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.middle_name.valid && submitted ">
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.middle_name.valid && personalForm.controls.middle_name.dirty">
                                         *Middle Name is required.
                                     </div>
                                 </div>
@@ -74,9 +74,9 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                        <input type="text" class="form-control" placeholder="Enter last name" id="last_name" formControlName="last_name">
+                                        <input (blur)="getValidate('*Last Name Required', 'Use 1-30 letters to spell your name.')"  type="text" class="form-control" placeholder="Enter last name" id="last_name" formControlName="last_name">
                                     </div>
-                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.last_name.valid && submitted ">
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.last_name.valid && personalForm.controls.last_name.dirty">
                                         *Last Name is required.
                                     </div>
                                 </div>
@@ -87,19 +87,16 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-birthday-cake"></i>
                   </span>
-                                        <input type="date" class="form-control" placeholder="Enter your birth date" id="dob" formControlName="dob">
-                                    </div>
-                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.dob.valid && submitted ">
-                                        *DOB is required.
+                                        <input (blur)="getValidate('*DOB Required', 'Use correct birth year.')"  type="date" class="form-control" placeholder="Enter your birth date" id="dob" formControlName="dob">
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-6">
                                     <label for="ssn">Social Security Number</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-circle-o-notch"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter SSN" id="ssn" formControlName="ssn">
+                                        <input (blur)="getValidate('*SSN Required', 'Use 123-45-6789 or 123456789')"  type="text" class="form-control" placeholder="Enter SSN" id="ssn" formControlName="ssn">
                                     </div>
-                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.ssn.valid && submitted ">
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.ssn.valid && personalForm.controls.ssn.dirty">
                                         *SSN is required.
                                     </div>
                                 </div>
@@ -109,9 +106,9 @@
                                     <label for="mobile_phone">Mobile Phone</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Mobile Phone" id="mobile_phone" formControlName="mobile_phone">
+                                        <input (blur)="getValidate('*Mobile phone Required', 'Use 123-456-7890 or 1234567890')"  type="text" class="form-control" placeholder="Enter Mobile Phone" id="mobile_phone" formControlName="mobile_phone">
                                     </div>
-                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.mobile_phone.valid && submitted ">
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.mobile_phone.valid && personalForm.controls.mobile_phone.dirty">
                                         *Mobile Phone is required.
                                     </div>
                                 </div>
@@ -119,7 +116,10 @@
                                     <label for="home_phone">Home Phone</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Home Phone" id="home_phone" formControlName="home_phone">
+                                        <input (blur)="getValidate('Home phone not Required', 'Use 123-456-7890 or 1234567890')" type="text" class="form-control" placeholder="Enter Home Phone" id="home_phone" formControlName="home_phone">
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.home_phone.valid && personalForm.controls.home_phone.dirty">
+                                        *Home Phone is required.
                                     </div>
                                 </div>
                             </div>
@@ -128,24 +128,26 @@
                                     <label for="business_phone">Business Phone</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-phone-square"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Business Phone" id="business_phone" formControlName="business_phone">
+                                        <input (blur)="getValidate('Business phone not Required', 'Use 123-456-7890 or 1234567890')"  type="text" class="form-control" placeholder="Enter Business Phone" id="business_phone" formControlName="business_phone">
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.business_phone.valid && personalForm.controls.business_phone.dirty">
+                                        *Business Phone is required.
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-6">
                                     <label for="fax_number">Fax Number</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fax"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Fax Number" id="fax_number" formControlName="fax_number">
+                                        <input (blur)="getValidate('Fax phone not Required', 'Use 123-456-7890 or 1234567890')"  type="text" class="form-control" placeholder="Enter Fax Number" id="fax_number" formControlName="fax_number">
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="!personalForm.controls.fax_number.valid && personalForm.controls.fax_number.dirty">
+                                        *Fax Phone is required.
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer tag-primary white">
-                            <!-- THIS IS THE PERSONAL FORM DATA OUTPUT -->
-                            <div [hidden]="!personalSubmitted">
-                                <h2>You Have Updated Your Personal Information:</h2>
-                            </div>
-                            <button type="submit" [disabled]="!personalForm.valid" class="btn btn-sm btn-danger btn-oj"><i class="fa fa-dot-circle-o"></i> Update</button>
+                            <button type="submit" (click)="getSuccess('Form Update', 'You have updated your personal information successfully.')" [disabled]="!personalForm.valid" class="btn btn-sm btn-danger btn-oj"><i class="fa fa-dot-circle-o"></i> Update</button>
                         </div>
                     </div>
                 </div>
@@ -219,3 +221,8 @@
         </form>
     </div>
 </div>
+
+<button (click)="getValidate('title', 'message')">Add Toast</button>
+<ng2-toasty [position]="'top-left'"></ng2-toasty>
+
+

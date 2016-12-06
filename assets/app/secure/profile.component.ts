@@ -1,45 +1,22 @@
-import { Component, OnInit }                from '@angular/core';
-import { Router }                           from '@angular/router';
-import { Http, Response, Headers }          from '@angular/http';
-import { Auth }                             from './../services/auth.service';
-import { Personal }    			            from '../models/personal';
-import { Address }    			            from '../models/address';
-import {FormGroup, Validators, FormControl, FormBuilder} from "@angular/forms";
+import { Component, OnInit }                                    from '@angular/core';
+import { Router }                                               from '@angular/router';
+import { Http, Response, Headers }                              from '@angular/http';
+import {FormGroup, Validators, FormControl }                   from "@angular/forms";
+import { ToastyService, ToastyConfig, ToastOptions, ToastData } from 'ng2-toasty';
+import { Auth }                                                 from './../services/auth.service';
+import { Personal }    			                                from './../models/personal';
+import { Address }    			                                from './../models/address';
 
 @Component({
     providers: [ Auth ],
     templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {
-    constructor(private _fb: FormBuilder, private router: Router, private auth: Auth, private http: Http) {
-    }
 
-    //Personal Form Control
-    public personalSubmitted: Boolean = false;
+    constructor(private router: Router, private auth: Auth, private http: Http, private toastyService: ToastyService, private toastyConfig: ToastyConfig) { }
+
     personalForm: FormGroup;
     personal = new Personal(this.auth.user.email, this.auth.user.first_name, this.auth.user.middle_name, this.auth.user.last_name, '', '', '', '', '', '');
-
-    private personalSubmit() {
-        this.personalSubmitted = true;
-        console.log('Personal Form Has Been Submitted');
-        if (!this.personalForm.valid) {
-            console.log('Personal Form Has Been Submitted but is not valid');
-        } else {
-            let headers = new Headers();
-            headers.append('Content-Type', 'application/json');
-            return this.http
-                .post('http://localhost:4200/api/updateProfile',
-                    this.personal,
-                    {headers: headers})
-                .map((res: Response) => res.json())
-                .subscribe((res) => {
-                    //do something with the response here
-                    console.log(res);
-                });
-        }
-    }
-
-    personalActive = true;
 
 // Address form
     address = new Address(this.auth.user.email, '', '', '', '');
@@ -83,7 +60,7 @@ export class ProfileComponent implements OnInit {
             ]),
             mobile_phone: new FormControl(null, [
                 Validators.required,
-                Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
+                Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"),
             ]),
             home_phone: new FormControl(null, [
                 Validators.required,
@@ -125,8 +102,38 @@ export class ProfileComponent implements OnInit {
                 });
         }
     }
+
+    getValidate(ErrorTitle, ErrorMessage) {
+        var toastOptions:ToastOptions = {
+            title: ErrorTitle,
+            msg: ErrorMessage,
+            showClose: true,
+            timeout: 10000,
+            theme: 'bootstrap',
+            onAdd: (toast:ToastData) => {
+                console.log('Toast ' + toast.id + ' has been added!');
+            },
+            onRemove: function(toast:ToastData) {
+                console.log('Toast ' + toast.id + ' has been removed!');
+            }
+        };
+        this.toastyService.warning(toastOptions);
+    }
+
+    getSuccess(SuccessTitle, SuccessMessage) {
+        var toastOptions:ToastOptions = {
+            title: SuccessTitle,
+            msg: SuccessMessage,
+            showClose: true,
+            timeout: 10000,
+            theme: 'bootstrap',
+            onAdd: (toast:ToastData) => {
+                console.log('Toast ' + toast.id + ' has been added!');
+            },
+            onRemove: function(toast:ToastData) {
+                console.log('Toast ' + toast.id + ' has been removed!');
+            }
+        };
+        this.toastyService.success(toastOptions);
+    }
 }
-
-
-
-
