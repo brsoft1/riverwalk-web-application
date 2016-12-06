@@ -6,6 +6,7 @@ import { ToastyService, ToastyConfig, ToastOptions, ToastData } from 'ng2-toasty
 import { Auth }                                                 from './../services/auth.service';
 import { Personal }    			                                from './../models/personal';
 import { Address }    			                                from './../models/address';
+import {INVALID, VALID} from "@angular/forms/src/model";
 
 @Component({
     providers: [ Auth ],
@@ -80,6 +81,7 @@ export class ProfileComponent implements OnInit {
                 Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
             ])
         });
+
     }
 
     save(model: Personal, isValid: boolean) {
@@ -103,12 +105,92 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    getValidate(ErrorTitle, ErrorMessage) {
+    emailValidate(ErrorTitle, ErrorMessage) {
+        if (this.personalForm.get('email').status == VALID) {
+            this.getSuccess("Email Entered", "Email entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    firstNameValidate(ErrorTitle, ErrorMessage) {
+        if (this.personalForm.get('first_name').status == VALID) {
+            this.getSuccess("First Name Entered", "First name entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    middleNameValidate(ErrorTitle, ErrorMessage) {
+        if (this.personalForm.get('middle_name').status == VALID) {
+            this.getSuccess("Middle Name Entered", "Middle name entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    lastNameValidate(ErrorTitle, ErrorMessage) {
+        if (this.personalForm.get('last_name').status == VALID) {
+            this.getSuccess("Last Name Entered", "Last name entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    ssnValidate(ErrorTitle, ErrorMessage) {
+        if (this.personalForm.get('last_name').status == VALID) {
+            this.getSuccess("SSN Entered", "SSN entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    dobValidate(ErrorTitle, ErrorMessage) {
+        if (this.personalForm.get('dob').status == VALID) {
+            this.getSuccess("DOB Entered", "DOB entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    mobilePhoneValidate(ErrorTitle, ErrorMessage) {
+        if (this.personalForm.get('mobile_phone').status == VALID) {
+            this.getSuccess("Mobile Phone Entered", "Mobile phone entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    homePhoneValidate(ErrorTitle, ErrorMessage) {
+        if (this.personalForm.get('home_phone').status == VALID) {
+            this.getSuccess("Home Phone Entered", "Home phone entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    businessPhoneValidate(ErrorTitle, ErrorMessage) {
+        if (this.personalForm.get('business_phone').status == VALID) {
+            this.getSuccess("Business Phone Entered", "Business phone entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    faxPhonePhoneValidate(ErrorTitle, ErrorMessage) {
+        if (this.personalForm.get('fax_number').status == VALID) {
+            this.getSuccess("Fax Number Entered", "Fax number entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    toastWarning(ErrorTitle, ErrorMessage) {
         var toastOptions:ToastOptions = {
             title: ErrorTitle,
             msg: ErrorMessage,
             showClose: true,
-            timeout: 10000,
+            timeout: 7000,
             theme: 'bootstrap',
             onAdd: (toast:ToastData) => {
                 console.log('Toast ' + toast.id + ' has been added!');
@@ -117,15 +199,15 @@ export class ProfileComponent implements OnInit {
                 console.log('Toast ' + toast.id + ' has been removed!');
             }
         };
-        this.toastyService.warning(toastOptions);
-    }
+            this.toastyService.warning(toastOptions);
+        }
 
     getSuccess(SuccessTitle, SuccessMessage) {
         var toastOptions:ToastOptions = {
             title: SuccessTitle,
             msg: SuccessMessage,
             showClose: true,
-            timeout: 10000,
+            timeout: 5000,
             theme: 'bootstrap',
             onAdd: (toast:ToastData) => {
                 console.log('Toast ' + toast.id + ' has been added!');
