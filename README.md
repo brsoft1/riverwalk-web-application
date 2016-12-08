@@ -5,16 +5,16 @@ A modern credit repair website with credit monitoring services
 ## Built With
 
 * Angular 2 - 2.1.1
-* Node.js - 6.7.0
+* Node.js - 7.2.1
 * Express - 4.14.0
 * PG npm - 6.1.0
 * Postgres System - 9.6
 
 ## Development Environment
 
-node: 6.7.0
+node: 7.2.1
 os: darwin x64 Sierra
-npm: 3.10.3
+npm: 4.0.3
 
 ## Contributing
 

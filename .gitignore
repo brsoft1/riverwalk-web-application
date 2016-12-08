@@ -1,6 +1,4 @@
-typings
 node_modules
-jspm_packages
-bower_components
 db/config.js
 assets/app/services/auth.config.ts
+merchant/merchant-config.js

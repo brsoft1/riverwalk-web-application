@@ -107,7 +107,7 @@ export class ProfileComponent implements OnInit {
 
     emailValidate(ErrorTitle, ErrorMessage) {
         if (this.personalForm.get('email').status == VALID) {
-            this.getSuccess("Email Entered", "Email entered correctly");
+            this.toastSuccess("Email Entered", "Email entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
@@ -115,7 +115,7 @@ export class ProfileComponent implements OnInit {
 
     firstNameValidate(ErrorTitle, ErrorMessage) {
         if (this.personalForm.get('first_name').status == VALID) {
-            this.getSuccess("First Name Entered", "First name entered correctly");
+            this.toastSuccess("First Name Entered", "First name entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
@@ -123,7 +123,7 @@ export class ProfileComponent implements OnInit {
 
     middleNameValidate(ErrorTitle, ErrorMessage) {
         if (this.personalForm.get('middle_name').status == VALID) {
-            this.getSuccess("Middle Name Entered", "Middle name entered correctly");
+            this.toastSuccess("Middle Name Entered", "Middle name entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
@@ -131,7 +131,7 @@ export class ProfileComponent implements OnInit {
 
     lastNameValidate(ErrorTitle, ErrorMessage) {
         if (this.personalForm.get('last_name').status == VALID) {
-            this.getSuccess("Last Name Entered", "Last name entered correctly");
+            this.toastSuccess("Last Name Entered", "Last name entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
@@ -139,7 +139,7 @@ export class ProfileComponent implements OnInit {
 
     ssnValidate(ErrorTitle, ErrorMessage) {
         if (this.personalForm.get('last_name').status == VALID) {
-            this.getSuccess("SSN Entered", "SSN entered correctly");
+            this.toastSuccess("SSN Entered", "SSN entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
@@ -147,7 +147,7 @@ export class ProfileComponent implements OnInit {
 
     dobValidate(ErrorTitle, ErrorMessage) {
         if (this.personalForm.get('dob').status == VALID) {
-            this.getSuccess("DOB Entered", "DOB entered correctly");
+            this.toastSuccess("DOB Entered", "DOB entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
@@ -155,7 +155,7 @@ export class ProfileComponent implements OnInit {
 
     mobilePhoneValidate(ErrorTitle, ErrorMessage) {
         if (this.personalForm.get('mobile_phone').status == VALID) {
-            this.getSuccess("Mobile Phone Entered", "Mobile phone entered correctly");
+            this.toastSuccess("Mobile Phone Entered", "Mobile phone entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
@@ -163,7 +163,7 @@ export class ProfileComponent implements OnInit {
 
     homePhoneValidate(ErrorTitle, ErrorMessage) {
         if (this.personalForm.get('home_phone').status == VALID) {
-            this.getSuccess("Home Phone Entered", "Home phone entered correctly");
+            this.toastSuccess("Home Phone Entered", "Home phone entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
@@ -171,7 +171,7 @@ export class ProfileComponent implements OnInit {
 
     businessPhoneValidate(ErrorTitle, ErrorMessage) {
         if (this.personalForm.get('business_phone').status == VALID) {
-            this.getSuccess("Business Phone Entered", "Business phone entered correctly");
+            this.toastSuccess("Business Phone Entered", "Business phone entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
@@ -179,7 +179,7 @@ export class ProfileComponent implements OnInit {
 
     faxPhonePhoneValidate(ErrorTitle, ErrorMessage) {
         if (this.personalForm.get('fax_number').status == VALID) {
-            this.getSuccess("Fax Number Entered", "Fax number entered correctly");
+            this.toastSuccess("Fax Number Entered", "Fax number entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
@@ -193,16 +193,16 @@ export class ProfileComponent implements OnInit {
             timeout: 7000,
             theme: 'bootstrap',
             onAdd: (toast:ToastData) => {
-                console.log('Toast ' + toast.id + ' has been added!');
+                console.log('Toast Warning ' + toast.id + ' has been added!');
             },
             onRemove: function(toast:ToastData) {
-                console.log('Toast ' + toast.id + ' has been removed!');
+                console.log('Toast Warning ' + toast.id + ' has been removed!');
             }
         };
             this.toastyService.warning(toastOptions);
         }
 
-    getSuccess(SuccessTitle, SuccessMessage) {
+    toastSuccess(SuccessTitle, SuccessMessage) {
         var toastOptions:ToastOptions = {
             title: SuccessTitle,
             msg: SuccessMessage,
@@ -210,10 +210,10 @@ export class ProfileComponent implements OnInit {
             timeout: 5000,
             theme: 'bootstrap',
             onAdd: (toast:ToastData) => {
-                console.log('Toast ' + toast.id + ' has been added!');
+                console.log('Toast Success' + toast.id + ' has been added!');
             },
             onRemove: function(toast:ToastData) {
-                console.log('Toast ' + toast.id + ' has been removed!');
+                console.log('Toast Success' + toast.id + ' has been removed!');
             }
         };
         this.toastyService.success(toastOptions);
