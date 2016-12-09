@@ -2,7 +2,7 @@
 
 var ApiContracts = require('authorizenet').APIContracts;
 var ApiControllers = require('authorizenet').APIControllers;
-var MerchantConfig = require('./../merchant-config');
+var MerchantConfig = require('./../merchant.config');
 
 function getCustomerProfile(customerProfileId, callback) {
 

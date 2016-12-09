@@ -3,7 +3,7 @@
 var ApiContracts = require('authorizenet').APIContracts;
 var ApiControllers = require('authorizenet').APIControllers;
 var SDKConstants = require('authorizenet').Constants;
-var MerchantConfig = require('./../merchant-config');
+var MerchantConfig = require('./../merchant.config');
 
 // Functions to help testing the application in Sandbox
 var utils = require('./../utils.js');

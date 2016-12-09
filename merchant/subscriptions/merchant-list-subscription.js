@@ -2,7 +2,7 @@
 
 var ApiContracts = require('authorizenet').APIContracts;
 var ApiControllers = require('authorizenet').APIControllers;
-var MerchantConfig = require('./../merchant-config');
+var MerchantConfig = require('./../merchant.config');
 
 // utils for testing functions to help / not for production
 var utils = require('./../utils.js');

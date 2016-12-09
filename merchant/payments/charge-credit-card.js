@@ -4,7 +4,7 @@ var ApiContracts = require('authorizenet').APIContracts;
 var ApiControllers = require('authorizenet').APIControllers;
 var SDKConstants = require('authorizenet').Constants;
 var utils = require('../utils.js');
-var MerchantConfig = require('./../merchant-config');
+var MerchantConfig = require('./../merchant.config');
 
 function chargeCreditCard(callback) {
     var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
