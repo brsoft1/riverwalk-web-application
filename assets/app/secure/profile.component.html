@@ -39,7 +39,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-envelope"></i>
                   </span>
-                                        <input (blur)="emailValidate('*Email Required', 'Use 1-30 letters to spell your name.')" type="text" class="form-control" id="email" formControlName="email" placeholder="{{personal.email}}"readonly>
+                                        <input (blur)="emailValidate('Email *Required', 'Use 1-30 letters to spell your name.')" type="text" class="form-control" id="email" formControlName="email" placeholder="{{personal.email}}"readonly>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                        <input (blur)="firstNameValidate('*First Name Required', 'Use 1-30 letters to spell your name.')" type="text" class="form-control" placeholder="Enter first name" id="first_name" formControlName="first_name">
+                                        <input (blur)="firstNameValidate('First Name *Required', 'Use 1-30 letters to spell your name.')" type="text" class="form-control" placeholder="Enter first name" id="first_name" formControlName="first_name">
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-4">
@@ -57,7 +57,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                        <input (blur)="middleNameValidate('*Middle Name Required', 'Use 1-30 letters to spell your name.')"  type="text" class="form-control" placeholder="Enter middle name" id="middle_name" formControlName="middle_name">
+                                        <input (blur)="middleNameValidate('Middle Name *Required', 'Use 1-30 letters to spell your name.')"  type="text" class="form-control" placeholder="Enter middle name" id="middle_name" formControlName="middle_name">
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-4">
@@ -65,7 +65,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i>
                   </span>
-                                        <input (blur)="lastNameValidate('*Last Name Required', 'Use 1-30 letters to spell your name.')"  type="text" class="form-control" placeholder="Enter last name" id="last_name" formControlName="last_name">
+                                        <input (blur)="lastNameValidate('Last Name *Required', 'Use 1-30 letters to spell your name.')"  type="text" class="form-control" placeholder="Enter last name" id="last_name" formControlName="last_name">
                                     </div>
                                 </div>
                             </div>
@@ -75,14 +75,14 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-birthday-cake"></i>
                   </span>
-                                        <input (blur)="dobValidate('*DOB Required', 'Use correct birth year.')"  type="date" class="form-control" placeholder="Enter your birth date" id="dob" formControlName="dob">
+                                        <input (blur)="dobValidate('DOB *Required', 'Use correct birth year.')"  type="date" class="form-control" placeholder="Enter your birth date" id="dob" formControlName="dob">
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-6">
                                     <label for="ssn">Social Security Number</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-circle-o-notch"></i></span>
-                                        <input (blur)="ssnValidate('*SSN Required', 'Use 123-45-6789 or 123456789')"  type="text" class="form-control" placeholder="Enter SSN" id="ssn" formControlName="ssn">
+                                        <input (blur)="ssnValidate('SSN *Required', 'Use 123-45-6789 or 123456789')"  type="text" class="form-control" placeholder="Enter SSN" id="ssn" formControlName="ssn">
                                     </div>
                                 </div>
                             </div>
@@ -91,14 +91,14 @@
                                     <label for="mobile_phone">Mobile Phone</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
-                                        <input (blur)="mobilePhoneValidate('*Mobile phone Required', 'Use 123-456-7890 or 1234567890')"  type="text" class="form-control" placeholder="Enter Mobile Phone" id="mobile_phone" formControlName="mobile_phone">
+                                        <input (blur)="mobilePhoneValidate('Mobile phone *Required', 'Use 123-456-7890 or 1234567890')"  type="text" class="form-control" placeholder="Enter Mobile Phone" id="mobile_phone" formControlName="mobile_phone">
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-6">
                                     <label for="home_phone">Home Phone</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                        <input (blur)="homePhoneValidate('Home phone not Required', 'Use 123-456-7890 or 1234567890')" type="text" class="form-control" placeholder="Enter Home Phone" id="home_phone" formControlName="home_phone">
+                                        <input (blur)="homePhoneValidate('Home phone not', 'Use 123-456-7890 or 1234567890')" type="text" class="form-control" placeholder="Enter Home Phone" id="home_phone" formControlName="home_phone">
                                     </div>
                                 </div>
                             </div>
@@ -107,14 +107,14 @@
                                     <label for="business_phone">Business Phone</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-phone-square"></i></span>
-                                        <input (blur)="businessPhoneValidate('Business phone not Required', 'Use 123-456-7890 or 1234567890')"  type="text" class="form-control" placeholder="Enter Business Phone" id="business_phone" formControlName="business_phone">
+                                        <input (blur)="businessPhoneValidate('Business phone not', 'Use 123-456-7890 or 1234567890')"  type="text" class="form-control" placeholder="Enter Business Phone" id="business_phone" formControlName="business_phone">
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-6">
                                     <label for="fax_number">Fax Number</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fax"></i></span>
-                                        <input (blur)="faxPhonePhoneValidate('Fax phone not Required', 'Use 123-456-7890 or 1234567890')"  type="text" class="form-control" placeholder="Enter Fax Number" id="fax_number" formControlName="fax_number">
+                                        <input (blur)="faxPhonePhoneValidate('Fax phone not', 'Use 123-456-7890 or 1234567890')"  type="text" class="form-control" placeholder="Enter Fax Number" id="fax_number" formControlName="fax_number">
                                     </div>
                                 </div>
                             </div>
@@ -195,7 +195,6 @@
     </div>
 </div>
 
-<button (click)="getValidate('title', 'message')">Add Toast</button>
 <ng2-toasty [position]="'top-left'"></ng2-toasty>
 
 
