@@ -25,8 +25,8 @@
                                                 <span class="input-group-addon"><i class="fa fa-credit-card"></i>
                       </span>
                                             <select (blur)="cardTypeValidate('Credit Card Type *Required', 'Select the card type')" class="form-control" id="cardType" formControlName="cardType">
-                                                <option value="" disabled selected>Card Type</option>
-                                                <option *ngFor="let cardType of cardTypes" [value]="cardType">{{cardType}}</option>
+                                                <option value="cardType" readonly selected>Card Type</option>
+                                                <option placeholder="Card Type" *ngFor="let cardType of cardTypes" [value]="cardType">{{cardType}}</option>
                                             </select>
                                         </div>
                                     </div>

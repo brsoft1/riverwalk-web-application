@@ -1,6 +1,6 @@
 export class Payment {
     constructor(
-        public id: string,
+        public id: number,
         public email: string,
         public cardName: string,
         public cardType: string,

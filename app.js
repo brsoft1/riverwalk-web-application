@@ -45,5 +45,7 @@ app.post('/api/checkRegister', function(req, res) {
 app.post('/api/updateProfile', function(req, res) {
     dbProfile.updateProfile(req, res);
 });
-
+app.post('/api/updateCreditCard', function(req, res) {
+    dbProfile.updateCreditCard(req, res);
+});
 module.exports = app;

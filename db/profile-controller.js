@@ -141,5 +141,38 @@ module.exports = {
         pool.on('error', function(err, client) {
             console.error('idle client error', err.message, err.stack)
         });
+    },
+    updateCreditCard: function(req, res) {
+        pool.connect(function(err, client, done) {
+            if (err) {
+                console.error(err);
+                // should return response error like
+                return res.status(500).send();
+            }
+            var encryptSSN = encrypt(req.body.ssn);
+            // Setup the query
+            var updatePersonal = 'update public.user SET business_phone = $1, dob = $2, email = $3, fax_number =$4, first_name = $5, home_phone = $6, last_name= $7, middle_name = $8, mobile_phone = $9, ssn = $10 WHERE email= $3 RETURNING *';
+            client.query(updatePersonal, [req.body.business_phone, req.body.dob, req.body.email, req.body.fax_number, req.body.first_name, req.body.home_phone, req.body.last_name, req.body.middle_name, req.body.mobile_phone, encryptSSN], function(err, result) {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send();
+                    return done(); // always close connection
+                } else {
+                    if (result.rowCount > 0) {
+                        if (result.rows[0].ssn) {
+                            result.rows[0].ssn = decrypt(result.rows[0].ssn);
+                        }
+                        var user = result.rows[0];
+                        res.send(user);
+                        // return your user
+                        return done(); // always close connection
+                    }
+                }
+
+            });
+        })
+        pool.on('error', function(err, client) {
+            console.error('idle client error', err.message, err.stack)
+        });
     }
 };

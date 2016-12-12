@@ -17,7 +17,7 @@ export class PaymentMethodComponent implements OnInit {
     constructor( private router: Router, private auth: Auth, private http: Http, private toastyService: ToastyService, private toastyConfig: ToastyConfig  ) { }
 
     // Credit Card Form
-    payment = new Payment('', '', '', '', '', '', '', '');
+    payment = new Payment(this.auth.user.id, this.auth.user.email, '', '', '', '', '', '');
     paymentActive = true;
     cardTypes = ['American Express', 'Discover', 'Master Card', 'Visa'];
     expMonths = ['January','February','March','April','May','June','July','August','September', 'October','November','December'];
@@ -29,30 +29,30 @@ export class PaymentMethodComponent implements OnInit {
             email : new FormControl(this.auth.user.email,Validators.required ),
             cardName: new FormControl(null,[
                 Validators.required,
-                Validators.pattern("^[a-zA-Zñáéíóúü']{1,30}$")
+                Validators.pattern("^[a-zA-Zñáéíóúü' ]{1,30}$")
             ]),
 
             cardType: new FormControl(null,[
                 Validators.required,
-                Validators.pattern("^[a-zA-Zñáéíóúü']{1,30}$")
+                Validators.pattern("^[a-zA-Zñáéíóúü' ]{1,30}$")
             ]),
 
             cardNumber : new FormControl (null, [
                 Validators.required,
-                Validators.pattern("[1][9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]|[2][0][0-9][0-9]-[0-9][0-9]-[0-9][0-9]")
+                Validators.pattern("^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$")
             ]),
             expMonth: new FormControl(null, [
                 Validators.required,
-                Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"),
+                Validators.pattern("^[a-zA-Zñáéíóúü']{1,30}$")
             ]),
             expYear: new FormControl(null, [
                 Validators.required,
-                Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
+                Validators.pattern("[0-9][0-9][0-9][0-9]")
             ]),
 
             cvc: new FormControl(null, [
                 Validators.required,
-                Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
+                Validators.pattern("[0-9][0-9][0-9]")
             ])
         });
     }
@@ -74,7 +74,7 @@ export class PaymentMethodComponent implements OnInit {
     }
 
     cardNumberValidate(ErrorTitle, ErrorMessage) {
-        if (this.creditCardForm.get('creditCard').status == VALID) {
+        if (this.creditCardForm.get('cardNumber').status == VALID) {
             this.toastSuccess("Card Number Entered", "Credit card number entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
@@ -115,7 +115,7 @@ export class PaymentMethodComponent implements OnInit {
             let headers = new Headers();
             headers.append('Content-Type', 'application/json');
             return this.http
-                .post('http://localhost:4200/api/updateProfile',
+                .post('http://localhost:4200/api/updateCreditCard',
                     model,
                     {headers: headers})
                 .map((res: Response) => res.json())
@@ -161,3 +161,6 @@ export class PaymentMethodComponent implements OnInit {
     }
 }
 
+// cardNumber : new FormControl (null, [
+//     Validators.required,
+//     Validators.pattern("^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$")

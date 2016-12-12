@@ -12,5 +12,5 @@ router.get('/', function(req, res, next) {
 router.post('/api/addAddress', ProfileController.addAddress);
 router.post('/api/checkRegister', ProfileController.checkRegister);
 router.post('/api/updateProfile', ProfileController.updateProfile);
-
+router.post('/api/updateCreditCard', ProfileController.updateCreditCard);
 module.exports = router;
