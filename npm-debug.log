@@ -1,33 +1,33 @@
 0 info it worked if it ends with ok
 1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
-2 info using npm@3.10.3
-3 info using node@v6.7.0
+2 info using npm@3.10.10
+3 info using node@v7.2.1
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info lifecycle Riverwalk-Credit@1.0.0~prestart: Riverwalk-Credit@1.0.0
 6 silly lifecycle Riverwalk-Credit@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle Riverwalk-Credit@1.0.0~start: Riverwalk-Credit@1.0.0
 8 verbose lifecycle Riverwalk-Credit@1.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle Riverwalk-Credit@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/wuno/Dropbox/google/devops/node/rw/node_modules/.bin:/usr/local/bin:/Users/wuno/.rvm/gems/ruby-2.2.3/bin:/Users/wuno/.rvm/gems/ruby-2.2.3@global/bin:/Users/wuno/.rvm/rubies/ruby-2.2.3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr:/usr/local:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin/virtualenvwrapper.sh:/Users/wuno/Library/Android/sdk/:/Users/wuno/Library/Android/sdk/platform-tools:/Users/wuno/Library/Android/sdk/tools:/Applications/MAMP/bin/php/php5.6.10/bin:/Applications/MAMP/Library/bin/mysql:/Applications/MAMP/Library/bin/mysqladmin:/Applications/Postgres.app/Contents/Versions/9.6/bin/:/Users/wuno/.rvm/gems/ruby-2.2.3/bin:/Users/wuno/.rvm/gems/ruby-2.2.3@global/bin:/Users/wuno/.rvm/rubies/ruby-2.2.3/bin:/Users/wuno/.rvm/bin
+9 verbose lifecycle Riverwalk-Credit@1.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/wuno/Dropbox/google/devops/node/rw/node_modules/.bin:/Users/wuno/.rvm/gems/ruby-2.2.3/bin:/Users/wuno/.rvm/gems/ruby-2.2.3@global/bin:/Users/wuno/.rvm/rubies/ruby-2.2.3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr:/usr/local:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin/virtualenvwrapper.sh:/Users/wuno/Library/Android/sdk/:/Users/wuno/Library/Android/sdk/platform-tools:/Users/wuno/Library/Android/sdk/tools:/Applications/MAMP/bin/php/php5.6.10/bin:/Applications/MAMP/Library/bin/mysql:/Applications/MAMP/Library/bin/mysqladmin:/Applications/Postgres.app/Contents/Versions/9.6/bin/:/Users/wuno/.rvm/gems/ruby-2.2.3/bin:/Users/wuno/.rvm/gems/ruby-2.2.3@global/bin:/Users/wuno/.rvm/rubies/ruby-2.2.3/bin:/Users/wuno/.rvm/bin
 10 verbose lifecycle Riverwalk-Credit@1.0.0~start: CWD: /Users/wuno/Dropbox/google/devops/node/rw
 11 silly lifecycle Riverwalk-Credit@1.0.0~start: Args: [ '-c', 'node ./bin/www' ]
 12 silly lifecycle Riverwalk-Credit@1.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle Riverwalk-Credit@1.0.0~start: Failed to exec start script
 14 verbose stack Error: Riverwalk-Credit@1.0.0 start: `node ./bin/www`
 14 verbose stack Exit status 1
-14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:242:16)
+14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at EventEmitter.emit (events.js:191:7)
 14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:40:14)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at ChildProcess.emit (events.js:191:7)
-14 verbose stack     at maybeClose (internal/child_process.js:877:16)
+14 verbose stack     at maybeClose (internal/child_process.js:885:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid Riverwalk-Credit@1.0.0
 16 verbose cwd /Users/wuno/Dropbox/google/devops/node/rw
 17 error Darwin 16.1.0
 18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
-19 error node v6.7.0
-20 error npm  v3.10.3
+19 error node v7.2.1
+20 error npm  v3.10.10
 21 error code ELIFECYCLE
 22 error Riverwalk-Credit@1.0.0 start: `node ./bin/www`
 22 error Exit status 1

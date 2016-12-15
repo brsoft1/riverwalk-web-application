@@ -35,10 +35,7 @@ app.use(function(req, res, next) {
     return res.render('index');
 });
 
-// API Routes 
-app.post('/api/addAddress', function(req, res) {
-    dbProfile.addAddress(req, res);
-});
+// API Routes
 app.post('/api/checkRegister', function(req, res) {
     dbProfile.checkRegister(req, res);
 });
