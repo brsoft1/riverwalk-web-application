@@ -1,12 +1,11 @@
 import { Component, OnInit }                                    from '@angular/core';
 import { Router }                                               from '@angular/router';
 import { Http, Response, Headers }                              from '@angular/http';
-import {FormGroup, Validators, FormControl }                   from "@angular/forms";
+import { FormGroup, Validators, FormControl }                   from "@angular/forms";
 import { ToastyService, ToastyConfig, ToastOptions, ToastData } from 'ng2-toasty';
 import { Auth }                                                 from './../services/auth.service';
-import { Personal }    			                                from './../models/personal';
-import { Address }    			                                from './../models/address';
-import {INVALID, VALID} from "@angular/forms/src/model";
+import { Profile }    			                                from './../models/profile';
+import { VALID }                                                from "@angular/forms/src/model";
 
 @Component({
     providers: [ Auth ],
@@ -16,30 +15,15 @@ export class ProfileComponent implements OnInit {
 
     constructor(private router: Router, private auth: Auth, private http: Http, private toastyService: ToastyService, private toastyConfig: ToastyConfig) { }
 
-    personalForm: FormGroup;
-    personal = new Personal(this.auth.user.email, this.auth.user.first_name, this.auth.user.middle_name, this.auth.user.last_name, '', '', '', '', '', '');
-
-// Address form
-    address = new Address(this.auth.user.email, '', '', '', '');
-
-    addressSubmitted = false;
-
-    addressSubmit() {
-        this.addressSubmitted = true;
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return this.http
-            .post('http://localhost:4200/api/addAddress',
-                this.address,
-                {headers: headers})
-            .subscribe();
-    }
-
-    addressActive = true;
-    states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Federated States of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
-
+    profileForm: FormGroup;
+    profile = new Profile( this.auth.user.id, this.auth.user.email, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',);
+    states = ['Select State', 'Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Federated States of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+    cardTypes = ['Select Card', 'American Express', 'Discover', 'Master Card', 'Visa'];
+    expMonths = ['Select Month', 'January','February','March','April','May','June','July','August','September', 'October','November','December'];
+    expYears = ['Select Year', '2016','2017', '2018','2019','2020','2021','2022','2023','2024','2025','2026','2027','2028','2029','2030','2031','2032','2033','2034','2035','2036','2037','2038','2039', '2040','2041','2042','2043','2044','2045','2046','2047','2048','2049','2050','2051'];
     ngOnInit() {
-        this.personalForm = new FormGroup({
+        this.profileForm = new FormGroup({
+            id : new FormControl(this.auth.user.id,Validators.required ),
             email : new FormControl(this.auth.user.email,Validators.required ),
             first_name: new FormControl(null,[
                 Validators.required,
@@ -67,29 +51,63 @@ export class ProfileComponent implements OnInit {
                 Validators.required,
                 Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
             ]),
-
-            business_phone: new FormControl(null, [
-                Validators.required,
-                Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
-            ]),
-            fax_number: new FormControl(null, [
-                Validators.required,
-                Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
-            ]),
             ssn: new FormControl(null, [
                 Validators.required,
                 Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
+            ]),
+            street_address: new FormControl (null, [
+                Validators.required,
+                Validators.pattern("^[0-9]+ .+$")
+            ]),
+            city_address: new FormControl(null, [
+                Validators.required,
+                Validators.pattern("^[a-zA-Zñáéíóúü' ]{1,30}$")
+            ]),
+            state_address: new FormControl(null, [
+                Validators.required,
+                Validators.pattern("^[a-zA-Zñáéíóúü' ]{1,30}$")
+            ]),
+            zip_address: new FormControl(null, [
+                Validators.required,
+                Validators.pattern("[0-9][0-9][0-9][0-9][0-9]")
+            ]),
+            cardName: new FormControl(null,[
+                Validators.required,
+                Validators.pattern("^[a-zA-Zñáéíóúü' ]{1,30}$")
+            ]),
+
+            cardType: new FormControl(null,[
+                Validators.required,
+                Validators.pattern("^[a-zA-Zñáéíóúü' ]{1,30}$")
+            ]),
+
+            cardNumber : new FormControl (null, [
+                Validators.required,
+                Validators.pattern("^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$")
+            ]),
+            expMonth: new FormControl(null, [
+                Validators.required,
+                Validators.pattern("^[a-zA-Zñáéíóúü']{1,30}$")
+            ]),
+            expYear: new FormControl(null, [
+                Validators.required,
+                Validators.pattern("[0-9][0-9][0-9][0-9]")
+            ]),
+
+            cvc: new FormControl(null, [
+                Validators.required,
+                Validators.pattern("[0-9][0-9][0-9]")
             ])
         });
 
     }
 
-    save(model: Personal, isValid: boolean) {
+    saveProfile(model: Profile, isValid: boolean) {
         if (!isValid) {
             console.log('Personal Form is not valid');
             console.log(model, isValid);
         } else {
-            console.log('Personal Form is valid');
+            console.log('Profile Form is valid');
             console.log(model, isValid);
             let headers = new Headers();
             headers.append('Content-Type', 'application/json');
@@ -106,7 +124,7 @@ export class ProfileComponent implements OnInit {
     }
 
     emailValidate(ErrorTitle, ErrorMessage) {
-        if (this.personalForm.get('email').status == VALID) {
+        if (this.profileForm.get('email').status == VALID) {
             this.toastSuccess("Email Entered", "Email entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
@@ -114,7 +132,7 @@ export class ProfileComponent implements OnInit {
     }
 
     firstNameValidate(ErrorTitle, ErrorMessage) {
-        if (this.personalForm.get('first_name').status == VALID) {
+        if (this.profileForm.get('first_name').status == VALID) {
             this.toastSuccess("First Name Entered", "First name entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
@@ -122,7 +140,7 @@ export class ProfileComponent implements OnInit {
     }
 
     middleNameValidate(ErrorTitle, ErrorMessage) {
-        if (this.personalForm.get('middle_name').status == VALID) {
+        if (this.profileForm.get('middle_name').status == VALID) {
             this.toastSuccess("Middle Name Entered", "Middle name entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
@@ -130,7 +148,7 @@ export class ProfileComponent implements OnInit {
     }
 
     lastNameValidate(ErrorTitle, ErrorMessage) {
-        if (this.personalForm.get('last_name').status == VALID) {
+        if (this.profileForm.get('last_name').status == VALID) {
             this.toastSuccess("Last Name Entered", "Last name entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
@@ -138,7 +156,7 @@ export class ProfileComponent implements OnInit {
     }
 
     ssnValidate(ErrorTitle, ErrorMessage) {
-        if (this.personalForm.get('last_name').status == VALID) {
+        if (this.profileForm.get('last_name').status == VALID) {
             this.toastSuccess("SSN Entered", "SSN entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
@@ -146,7 +164,7 @@ export class ProfileComponent implements OnInit {
     }
 
     dobValidate(ErrorTitle, ErrorMessage) {
-        if (this.personalForm.get('dob').status == VALID) {
+        if (this.profileForm.get('dob').status == VALID) {
             this.toastSuccess("DOB Entered", "DOB entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
@@ -154,7 +172,7 @@ export class ProfileComponent implements OnInit {
     }
 
     mobilePhoneValidate(ErrorTitle, ErrorMessage) {
-        if (this.personalForm.get('mobile_phone').status == VALID) {
+        if (this.profileForm.get('mobile_phone').status == VALID) {
             this.toastSuccess("Mobile Phone Entered", "Mobile phone entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
@@ -162,24 +180,88 @@ export class ProfileComponent implements OnInit {
     }
 
     homePhoneValidate(ErrorTitle, ErrorMessage) {
-        if (this.personalForm.get('home_phone').status == VALID) {
+        if (this.profileForm.get('home_phone').status == VALID) {
             this.toastSuccess("Home Phone Entered", "Home phone entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
     }
 
-    businessPhoneValidate(ErrorTitle, ErrorMessage) {
-        if (this.personalForm.get('business_phone').status == VALID) {
-            this.toastSuccess("Business Phone Entered", "Business phone entered correctly");
+    streetValidate(ErrorTitle, ErrorMessage) {
+        if (this.profileForm.get('street_address').status == VALID) {
+            this.toastSuccess("Street Entered", "Street phone entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
     }
 
-    faxPhonePhoneValidate(ErrorTitle, ErrorMessage) {
-        if (this.personalForm.get('fax_number').status == VALID) {
-            this.toastSuccess("Fax Number Entered", "Fax number entered correctly");
+    cityValidate(ErrorTitle, ErrorMessage) {
+        if (this.profileForm.get('city_address').status == VALID) {
+            this.toastSuccess("City Entered", "City phone entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    stateValidate(ErrorTitle, ErrorMessage) {
+        if (this.profileForm.get('state_address').status == VALID) {
+            this.toastSuccess("State Entered", "State entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    zipValidate(ErrorTitle, ErrorMessage) {
+        if (this.profileForm.get('zip_address').status == VALID) {
+            this.toastSuccess("Zip Entered", "Zip entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    cardNameValidate(ErrorTitle, ErrorMessage) {
+        if (this.profileForm.get('cardName').status == VALID) {
+            this.toastSuccess("Card Name Entered", "Name entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    cardTypeValidate(ErrorTitle, ErrorMessage) {
+        if (this.profileForm.get('cardType').status == VALID) {
+            this.toastSuccess("Card Type Entered", "Card Type entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    cardNumberValidate(ErrorTitle, ErrorMessage) {
+        if (this.profileForm.get('cardNumber').status == VALID) {
+            this.toastSuccess("Card Number Entered", "Credit card number entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    expMonthValidate(ErrorTitle, ErrorMessage) {
+        if (this.profileForm.get('expMonth').status == VALID) {
+            this.toastSuccess("Expiration Month Entered", "Expiration month entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    expYearValidate(ErrorTitle, ErrorMessage) {
+        if (this.profileForm.get('expYear').status == VALID) {
+            this.toastSuccess("Expiration Year Entered", "Expiration year entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
+
+    cvcValidate(ErrorTitle, ErrorMessage) {
+        if (this.profileForm.get('cvc').status == VALID) {
+            this.toastSuccess("CVC Entered", "CVC entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }

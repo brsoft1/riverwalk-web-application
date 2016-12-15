@@ -5,15 +5,15 @@ var ApiControllers = require('authorizenet').APIControllers;
 var utils = require('../utils.js');
 var MerchantConfig = require('./../merchant.config');
 
-function createCustomerProfile(callback) {
+function createCustomerProfile(cardNumber, expDate, email, id, callback) {
 
     var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
     merchantAuthenticationType.setName(MerchantConfig.AUTHNET_API_LOGIN_ID);
     merchantAuthenticationType.setTransactionKey(MerchantConfig.AUTHNET_TRANSACTION_KEY);
 
 	var creditCard = new ApiContracts.CreditCardType();
-	creditCard.setCardNumber('4242424242424242');
-	creditCard.setExpirationDate('0822');
+	creditCard.setCardNumber(cardNumber);
+	creditCard.setExpirationDate(expDate);
 
 	var paymentType = new ApiContracts.PaymentType();
 	paymentType.setCreditCard(creditCard);
@@ -26,9 +26,9 @@ function createCustomerProfile(callback) {
 	paymentProfilesList.push(customerPaymentProfileType);
 
 	var customerProfileType = new ApiContracts.CustomerProfileType();
-	customerProfileType.setMerchantCustomerId('M_' + utils.getRandomString('cust'));
-	customerProfileType.setDescription('Profile description here');
-	customerProfileType.setEmail(utils.getRandomString('cust')+'@anet.net');
+	customerProfileType.setMerchantCustomerId('AUTH_NET_' + id);
+	customerProfileType.setDescription('Website customer');
+	customerProfileType.setEmail(email);
 	customerProfileType.setPaymentProfiles(paymentProfilesList);
 
 	var createRequest = new ApiContracts.CreateCustomerProfileRequest();

@@ -25,7 +25,7 @@
             </div>
         </div>
         <!-- THIS IS THE PERSONAL DATA FORM -->
-        <form [formGroup]="personalForm" novalidate (ngSubmit)="save(personalForm.value, personalForm.valid)">
+        <form [formGroup]="profileForm" novalidate (ngSubmit)="saveProfile(profileForm.value, profileForm.valid)">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="card card-inverse card-success">
@@ -39,7 +39,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-envelope"></i>
                   </span>
-                                        <input (blur)="emailValidate('Email *Required', 'Use 1-30 letters to spell your name.')" type="text" class="form-control" id="email" formControlName="email" placeholder="{{personal.email}}"readonly>
+                                        <input (blur)="emailValidate('Email *Required', 'Use 1-30 letters to spell your name.')" type="text" class="form-control" id="email" formControlName="email" placeholder="{{profile.email}}"readonly>
                                     </div>
                                 </div>
                             </div>
@@ -102,37 +102,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-sm-12 col-md-6">
-                                    <label for="business_phone">Business Phone</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-phone-square"></i></span>
-                                        <input (blur)="businessPhoneValidate('Business phone not', 'Use 123-456-7890 or 1234567890')"  type="text" class="form-control" placeholder="Enter Business Phone" id="business_phone" formControlName="business_phone">
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-12 col-md-6">
-                                    <label for="fax_number">Fax Number</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-fax"></i></span>
-                                        <input (blur)="faxPhonePhoneValidate('Fax phone not', 'Use 123-456-7890 or 1234567890')"  type="text" class="form-control" placeholder="Enter Fax Number" id="fax_number" formControlName="fax_number">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="card-footer tag-primary white">
-                            <button type="submit" (click)="toastSuccess('Form Update', 'You have updated your personal information successfully.')" [disabled]="!personalForm.valid" class="btn btn-sm btn-danger btn-oj"><i class="fa fa-dot-circle-o"></i> Update</button>
+                            Complete all three forms on this page before activating services
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
         <!-- THIS IS THE ADDRESS FORM -->
-        <form *ngIf="addressActive" (ngSubmit)="addressSubmit()" #addressForm="ngForm">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="card card-inverse card-success">
                         <div class="card-header">
-                            <strong>Home Address</strong>
+                            <strong>Billing Address</strong>
                         </div>
                         <div class="card-block">
                             <div class="row">
@@ -141,9 +123,8 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-street-view"></i>
                   </span>
-                                        <input type="text" class="form-control" placeholder="Enter street name" id="street_address" [(ngModel)]="address.street_address" name="street_address" required #street_address="ngModel">
+                                        <input (blur)="streetValidate('Street *Required', '123 Example Street')" type="text" class="form-control" id="street_address" formControlName="street_address" placeholder="Enter street name">
                                     </div>
-                                    <div [hidden]="street_address.valid || street_address.pristine" class="alert alert-danger">Street is required</div>
                                 </div>
                             </div>
                             <div class="row">
@@ -152,22 +133,17 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-street-view"></i>
                   </span>
-                                        <input type="text" class="form-control" placeholder="Enter your city" id="city_address" [(ngModel)]="address.city_address" name="city_address" required #city_address="ngModel">
+                                        <input (blur)="cityValidate('City *Required', 'City Name')"  type="text" class="form-control" placeholder="Enter city name" id="city_address" formControlName="city_address">
                                     </div>
-                                    <div [hidden]="city_address.valid || city_address.pristine" class="alert alert-danger">City is required</div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-4">
                                     <label for="state_address">State</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-street-view"></i>
                   </span>
-                                        <select class="form-control" id="state_address" required [(ngModel)]="address.state_address" name="state_address" #state_address="ngModel">
-                                            <option value="" disabled selected>Select your option</option>
-                                            <option *ngFor="let state of states" [value]="state">{{state}}</option>
+                                        <select (blur)="stateValidate('State *Required', 'State Name')" class="form-control" id="state_address" formControlName="state_address">
+                                            <option *ngFor="let state of states">{{state}}</option>
                                         </select>
-                                    </div>
-                                    <div [hidden]="state_address.valid || state_address.pristine" class="alert alert-danger">
-                                        State is required
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-4">
@@ -175,18 +151,89 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-street-view"></i>
                   </span>
-                                        <input type="text" class="form-control" placeholder="Postal Code" id="zip_address" [(ngModel)]="address.zip_address" name="zip_address" required #zip_address="ngModel">
+                                        <input (blur)="zipValidate('Zip *Required', 'Zip code')" type="text" class="form-control" placeholder="Postal Code" id="zip_address" formControlName="zip_address">
                                     </div>
-                                    <div [hidden]="zip_address.valid || zip_address.pristine" class="alert alert-danger">Zip is required</div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer tag-primary white">
-                            <!-- THIS IS THE ADDRESS FORM DATA OUTPUT -->
-                            <div [hidden]="!addressSubmitted">
-                                <h2>You Have Updated Your Address:</h2>
+                            Complete all three forms on this page before activating services
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Payment Method Form -->
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="card card-inverse card-success">
+                        <div class="card-header">
+                            <strong>Add Credit Card</strong>
+                        </div>
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="form-group col-sm-12 col-md-6">
+                                    <label for="cardName">Name on Card</label>
+                                    <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
+                      </span>
+                                        <input (blur)="cardNameValidate('Card Holder Name *Required', 'Enter the name as it appears on the card')" type="text" class="form-control" placeholder="Enter name on card" id="cardName" formControlName="cardName">
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12 col-md-6">
+                                    <label for="cardType">Card Type</label>
+                                    <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
+                      </span>
+                                        <select (blur)="cardTypeValidate('Credit Card Type *Required', 'Select the card type')" class="form-control" id="cardType" formControlName="cardType">
+                                            <option *ngFor="let cardType of cardTypes">{{cardType}}</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-sm btn-danger btn-oj" [disabled]="!addressForm.form.valid"><i class="fa fa-dot-circle-o"></i> Update</button>
+                            <div class="row">
+                                <div class="form-group col-sm-12 col-md-12">
+                                    <label for="cardNumber">Credit Card number</label>
+                                    <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
+                      </span>
+                                        <input (blur)="cardNumberValidate('Card Number *Required', 'Enter the card number with no spaces')" type="text" class="form-control" placeholder="Enter your credit card number" id="cardNumber" formControlName="cardNumber">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-12 col-md-4">
+                                    <label for="expMonth">Month</label>
+                                    <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
+                      </span>
+                                        <select (blur)="expMonthValidate('Expiration Month *Required', 'Enter the expiration date')" class="form-control" id="expMonth" formControlName="expMonth">
+                                            <option *ngFor="let expMonth of expMonths">{{expMonth}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12 col-md-4">
+                                    <label for="expYear">Year</label>
+                                    <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
+                      </span>
+                                        <select (blur)="expYearValidate('Card Expiration *Required', 'Enter the expiration date')" class="form-control" id="expYear" formControlName="expYear">
+                                            <option *ngFor="let expYear of expYears">{{expYear}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12 col-md-4">
+                                    <label for="cvc">CVC</label>
+                                    <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
+                      </span>
+                                        <input (blur)="cvcValidate('CVC is Required *Required', 'CVC on the back')" type="text" class="form-control" placeholder="Enter your CVC number" id="cvc" formControlName="cvc">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer tag-primary white">
+                            Complete profile subscription -
+                            <button type="submit" (click)="toastSuccess('Form Update', 'You have updated your personal information successfully.')" [disabled]="!profileForm.valid" class="btn btn-sm btn-danger btn-oj"><i class="fa fa-dot-circle-o"></i> Update</button>
                         </div>
                     </div>
                 </div>
@@ -196,5 +243,3 @@
 </div>
 
 <ng2-toasty [position]="'top-left'"></ng2-toasty>
-
-

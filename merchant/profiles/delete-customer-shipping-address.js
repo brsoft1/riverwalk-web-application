@@ -2,7 +2,7 @@
 
 var ApiContracts = require('authorizenet').APIContracts;
 var ApiControllers = require('authorizenet').APIControllers;
-var MerchantConfig = require('./../merchant.config');s
+var MerchantConfig = require('./../merchant.config');
 
 function deleteCustomerShippingAddress(customerProfileId, customerAddressId, callback) {
 

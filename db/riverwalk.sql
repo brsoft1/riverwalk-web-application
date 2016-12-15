@@ -28,8 +28,6 @@ CREATE TABLE public."user"
   dob timestamp without time zone,
   mobile_phone text,
   home_phone text,
-  business_phone text,
-  fax_number text,
   ssn text,
   street_address text,
   city_address text,
@@ -37,6 +35,8 @@ CREATE TABLE public."user"
   zip_address text,
   account_locked boolean NOT NULL,
   contract boolean NOT NULL,
+  customer_id boolean NOT NULL,
+  customer_profile_id text,
   CONSTRAINT pk_user_id PRIMARY KEY (id),
   CONSTRAINT uk_user_email UNIQUE (email)
 )
