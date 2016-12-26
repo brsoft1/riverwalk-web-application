@@ -104,7 +104,7 @@
                             </div>
                         </div>
                         <div class="card-footer tag-primary white">
-                            Complete all three forms on this page before activating services
+                            Continue - Home Address
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     <div class="card card-inverse card-success">
                         <div class="card-header">
-                            <strong>Billing Address</strong>
+                            <strong>Home Address</strong>
                         </div>
                         <div class="card-block">
                             <div class="row">
@@ -152,81 +152,6 @@
                                         <span class="input-group-addon"><i class="fa fa-street-view"></i>
                   </span>
                                         <input (blur)="zipValidate('Zip *Required', 'Zip code')" type="text" class="form-control" placeholder="Postal Code" id="zip_address" formControlName="zip_address">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer tag-primary white">
-                            Complete all three forms on this page before activating services
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Payment Method Form -->
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <div class="card card-inverse card-success">
-                        <div class="card-header">
-                            <strong>Add Credit Card</strong>
-                        </div>
-                        <div class="card-block">
-                            <div class="row">
-                                <div class="form-group col-sm-12 col-md-6">
-                                    <label for="cardName">Name on Card</label>
-                                    <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
-                      </span>
-                                        <input (blur)="cardNameValidate('Card Holder Name *Required', 'Enter the name as it appears on the card')" type="text" class="form-control" placeholder="Enter name on card" id="cardName" formControlName="cardName">
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-12 col-md-6">
-                                    <label for="cardType">Card Type</label>
-                                    <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
-                      </span>
-                                        <select (blur)="cardTypeValidate('Credit Card Type *Required', 'Select the card type')" class="form-control" id="cardType" formControlName="cardType">
-                                            <option *ngFor="let cardType of cardTypes">{{cardType}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-sm-12 col-md-12">
-                                    <label for="cardNumber">Credit Card number</label>
-                                    <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
-                      </span>
-                                        <input (blur)="cardNumberValidate('Card Number *Required', 'Enter the card number with no spaces')" type="text" class="form-control" placeholder="Enter your credit card number" id="cardNumber" formControlName="cardNumber">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-sm-12 col-md-4">
-                                    <label for="expMonth">Month</label>
-                                    <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
-                      </span>
-                                        <select (blur)="expMonthValidate('Expiration Month *Required', 'Enter the expiration date')" class="form-control" id="expMonth" formControlName="expMonth">
-                                            <option *ngFor="let expMonth of expMonths">{{expMonth}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-12 col-md-4">
-                                    <label for="expYear">Year</label>
-                                    <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
-                      </span>
-                                        <select (blur)="expYearValidate('Card Expiration *Required', 'Enter the expiration date')" class="form-control" id="expYear" formControlName="expYear">
-                                            <option *ngFor="let expYear of expYears">{{expYear}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-12 col-md-4">
-                                    <label for="cvc">CVC</label>
-                                    <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
-                      </span>
-                                        <input (blur)="cvcValidate('CVC is Required *Required', 'CVC on the back')" type="text" class="form-control" placeholder="Enter your CVC number" id="cvc" formControlName="cvc">
                                     </div>
                                 </div>
                             </div>

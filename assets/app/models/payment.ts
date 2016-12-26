@@ -7,6 +7,11 @@ export class Payment {
         public cardNumber: string,
         public expMonth: string,
         public expYear: string,
-        public cvc: string
+        public cvc: string,
+        public street_address: string,
+        public city_address: string,
+        public state_address: string,
+        public zip_address: string,
+        public customer_profile_id: string
   ) {  }
 }

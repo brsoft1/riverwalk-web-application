@@ -16,12 +16,11 @@ export class ProfileComponent implements OnInit {
     constructor(private router: Router, private auth: Auth, private http: Http, private toastyService: ToastyService, private toastyConfig: ToastyConfig) { }
 
     profileForm: FormGroup;
-    profile = new Profile( this.auth.user.id, this.auth.user.email, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',);
+    profile = new Profile( this.auth.user.id, this.auth.user.email, '', '', '', '', '', '', '', '', '', '', '', this.auth.user.customer_id, this.auth.user.customer_profile_id);
     states = ['Select State', 'Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Federated States of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
-    cardTypes = ['Select Card', 'American Express', 'Discover', 'Master Card', 'Visa'];
-    expMonths = ['Select Month', 'January','February','March','April','May','June','July','August','September', 'October','November','December'];
-    expYears = ['Select Year', '2016','2017', '2018','2019','2020','2021','2022','2023','2024','2025','2026','2027','2028','2029','2030','2031','2032','2033','2034','2035','2036','2037','2038','2039', '2040','2041','2042','2043','2044','2045','2046','2047','2048','2049','2050','2051'];
+
     ngOnInit() {
+        console.log(this.auth.user.customer_profile_id);
         this.profileForm = new FormGroup({
             id : new FormControl(this.auth.user.id,Validators.required ),
             email : new FormControl(this.auth.user.email,Validators.required ),
@@ -33,15 +32,17 @@ export class ProfileComponent implements OnInit {
                 Validators.required,
                 Validators.pattern("^[a-zA-Zñáéíóúü']{1,30}$")
             ]),
-
             last_name: new FormControl(null,[
                 Validators.required,
                 Validators.pattern("^[a-zA-Zñáéíóúü']{1,30}$")
             ]),
-
             dob : new FormControl (null, [
                 Validators.required,
                 Validators.pattern("[1][9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]|[2][0][0-9][0-9]-[0-9][0-9]-[0-9][0-9]")
+            ]),
+            ssn: new FormControl(null, [
+                Validators.required,
+                Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
             ]),
             mobile_phone: new FormControl(null, [
                 Validators.required,
@@ -50,10 +51,6 @@ export class ProfileComponent implements OnInit {
             home_phone: new FormControl(null, [
                 Validators.required,
                 Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
-            ]),
-            ssn: new FormControl(null, [
-                Validators.required,
-                Validators.pattern("[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
             ]),
             street_address: new FormControl (null, [
                 Validators.required,
@@ -70,33 +67,6 @@ export class ProfileComponent implements OnInit {
             zip_address: new FormControl(null, [
                 Validators.required,
                 Validators.pattern("[0-9][0-9][0-9][0-9][0-9]")
-            ]),
-            cardName: new FormControl(null,[
-                Validators.required,
-                Validators.pattern("^[a-zA-Zñáéíóúü' ]{1,30}$")
-            ]),
-
-            cardType: new FormControl(null,[
-                Validators.required,
-                Validators.pattern("^[a-zA-Zñáéíóúü' ]{1,30}$")
-            ]),
-
-            cardNumber : new FormControl (null, [
-                Validators.required,
-                Validators.pattern("^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$")
-            ]),
-            expMonth: new FormControl(null, [
-                Validators.required,
-                Validators.pattern("^[a-zA-Zñáéíóúü']{1,30}$")
-            ]),
-            expYear: new FormControl(null, [
-                Validators.required,
-                Validators.pattern("[0-9][0-9][0-9][0-9]")
-            ]),
-
-            cvc: new FormControl(null, [
-                Validators.required,
-                Validators.pattern("[0-9][0-9][0-9]")
             ])
         });
 
@@ -155,17 +125,17 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    ssnValidate(ErrorTitle, ErrorMessage) {
-        if (this.profileForm.get('last_name').status == VALID) {
-            this.toastSuccess("SSN Entered", "SSN entered correctly");
+    dobValidate(ErrorTitle, ErrorMessage) {
+        if (this.profileForm.get('dob').status == VALID) {
+            this.toastSuccess("DOB Entered", "DOB entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
     }
 
-    dobValidate(ErrorTitle, ErrorMessage) {
-        if (this.profileForm.get('dob').status == VALID) {
-            this.toastSuccess("DOB Entered", "DOB entered correctly");
+    ssnValidate(ErrorTitle, ErrorMessage) {
+        if (this.profileForm.get('last_name').status == VALID) {
+            this.toastSuccess("SSN Entered", "SSN entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
@@ -219,53 +189,6 @@ export class ProfileComponent implements OnInit {
         }
     }
 
-    cardNameValidate(ErrorTitle, ErrorMessage) {
-        if (this.profileForm.get('cardName').status == VALID) {
-            this.toastSuccess("Card Name Entered", "Name entered correctly");
-        } else {
-            this.toastWarning(ErrorTitle, ErrorMessage);
-        }
-    }
-
-    cardTypeValidate(ErrorTitle, ErrorMessage) {
-        if (this.profileForm.get('cardType').status == VALID) {
-            this.toastSuccess("Card Type Entered", "Card Type entered correctly");
-        } else {
-            this.toastWarning(ErrorTitle, ErrorMessage);
-        }
-    }
-
-    cardNumberValidate(ErrorTitle, ErrorMessage) {
-        if (this.profileForm.get('cardNumber').status == VALID) {
-            this.toastSuccess("Card Number Entered", "Credit card number entered correctly");
-        } else {
-            this.toastWarning(ErrorTitle, ErrorMessage);
-        }
-    }
-
-    expMonthValidate(ErrorTitle, ErrorMessage) {
-        if (this.profileForm.get('expMonth').status == VALID) {
-            this.toastSuccess("Expiration Month Entered", "Expiration month entered correctly");
-        } else {
-            this.toastWarning(ErrorTitle, ErrorMessage);
-        }
-    }
-
-    expYearValidate(ErrorTitle, ErrorMessage) {
-        if (this.profileForm.get('expYear').status == VALID) {
-            this.toastSuccess("Expiration Year Entered", "Expiration year entered correctly");
-        } else {
-            this.toastWarning(ErrorTitle, ErrorMessage);
-        }
-    }
-
-    cvcValidate(ErrorTitle, ErrorMessage) {
-        if (this.profileForm.get('cvc').status == VALID) {
-            this.toastSuccess("CVC Entered", "CVC entered correctly");
-        } else {
-            this.toastWarning(ErrorTitle, ErrorMessage);
-        }
-    }
 
     toastWarning(ErrorTitle, ErrorMessage) {
         var toastOptions:ToastOptions = {

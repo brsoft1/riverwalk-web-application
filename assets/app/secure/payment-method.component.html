@@ -3,6 +3,7 @@
         <div class="row">
             <!-- THIS IS THE PAYMENT METHOD FORM -->
             <form [formGroup]="creditCardForm" novalidate (ngSubmit)="saveCreditCard(creditCardForm.value, creditCardForm.valid)">
+                <!-- Payment Method Form -->
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="card card-inverse card-success">
@@ -25,8 +26,7 @@
                                                 <span class="input-group-addon"><i class="fa fa-credit-card"></i>
                       </span>
                                             <select (blur)="cardTypeValidate('Credit Card Type *Required', 'Select the card type')" class="form-control" id="cardType" formControlName="cardType">
-                                                <option value="cardType" readonly selected>Card Type</option>
-                                                <option placeholder="Card Type" *ngFor="let cardType of cardTypes" [value]="cardType">{{cardType}}</option>
+                                                <option *ngFor="let cardType of cardTypes">{{cardType}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -48,8 +48,7 @@
                                                 <span class="input-group-addon"><i class="fa fa-credit-card"></i>
                       </span>
                                             <select (blur)="expMonthValidate('Expiration Month *Required', 'Enter the expiration date')" class="form-control" id="expMonth" formControlName="expMonth">
-                                                <option value="Expiration Month" disabled selected>Expiration Month</option>
-                                                <option *ngFor="let expMonth of expMonths" [value]="expMonth">{{expMonth}}</option>
+                                                <option *ngFor="let expMonth of expMonths">{{expMonth}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -59,8 +58,7 @@
                                                 <span class="input-group-addon"><i class="fa fa-credit-card"></i>
                       </span>
                                             <select (blur)="expYearValidate('Card Expiration *Required', 'Enter the expiration date')" class="form-control" id="expYear" formControlName="expYear">
-                                                <option value="" disabled selected>Expiration Year</option>
-                                                <option *ngFor="let expYear of expYears" [value]="expYear">{{expYear}}</option>
+                                                <option *ngFor="let expYear of expYears">{{expYear}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -75,8 +73,61 @@
                                 </div>
                             </div>
                             <div class="card-footer tag-primary white">
-                                Add New Credit Card -
-                                <button type="submit" (click)="toastSuccess('Payment Updated', 'You have updated your payment information successfully')" [disabled]="!creditCardForm.valid" class="btn btn-sm btn-danger btn-oj"><i class="fa fa-dot-circle-o"></i> Add Now!</button>
+                                Continue - Billing Address
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- THIS IS THE ADDRESS FORM -->
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="card card-inverse card-success">
+                            <div class="card-header">
+                                <strong>Billing Address</strong>
+                            </div>
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="form-group col-sm-12 col-md-12">
+                                        <label for="street_address">Street</label>
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-street-view"></i>
+                  </span>
+                                            <input (blur)="streetValidate('Street *Required', '123 Example Street')" type="text" class="form-control" id="street_address" formControlName="street_address" placeholder="Enter street name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-12 col-md-4">
+                                        <label for="city_address">City</label>
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-street-view"></i>
+                  </span>
+                                            <input (blur)="cityValidate('City *Required', 'City Name')"  type="text" class="form-control" placeholder="Enter city name" id="city_address" formControlName="city_address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12 col-md-4">
+                                        <label for="state_address">State</label>
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-street-view"></i>
+                  </span>
+                                            <select (blur)="stateValidate('State *Required', 'State Name')" class="form-control" id="state_address" formControlName="state_address">
+                                                <option *ngFor="let state of states">{{state}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12 col-md-4">
+                                        <label for="zip_address">Postal Code</label>
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-street-view"></i>
+                  </span>
+                                            <input (blur)="zipValidate('Zip *Required', 'Zip code')" type="text" class="form-control" placeholder="Postal Code" id="zip_address" formControlName="zip_address">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer tag-primary white">
+                                Add Billing Method -
+                                <button type="submit" (click)="toastSuccess('Form Update', 'You have updated your personal information successfully.')" [disabled]="!creditCardForm.valid" class="btn btn-sm btn-danger btn-oj"><i class="fa fa-dot-circle-o"></i> Add Now</button>
                             </div>
                         </div>
                     </div>
@@ -91,7 +142,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <div class="card card-inverse card-success">
                                 <div class="card-header">
-                                    <strong>Card on File</strong>
+                                    <strong>Card on File -</strong>
                                 </div>
                                 <div class="card-block">
                                     <div class="form-group col-sm-12 col-md-12">
@@ -117,3 +168,9 @@
 </div>
 
 <ng2-toasty [position]="'top-left'"></ng2-toasty>
+
+
+
+
+
+

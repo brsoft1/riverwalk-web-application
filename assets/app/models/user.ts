@@ -20,7 +20,8 @@ export class User {
     public state_address: string,
     public zip_address: string,
     public account_locked: boolean,
-    public contract: boolean
-
+    public contract: boolean,
+    public customer_id: boolean,
+    public customer_profile_id: string
   ) {  }
 }

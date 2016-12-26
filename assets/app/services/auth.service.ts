@@ -40,7 +40,7 @@ export class Auth {
         // Login Or Register User On Our Server
         this.logreg = new LogReg(profile.email);   
         this.checkRegister(this.logreg).subscribe((res)=>{
-            this.user = new User(res.id, res.user_auth_level, res.employee_owner, res.affiliate_owner, res.created_on, res.email, res.first_name, res.middle_name, res.last_name, res.dob, res.mobile_phone, res.home_phone, res.business_phone, res.fax_number, res.ssn, res.street_address, res.city_address, res.state_address, res.zip_address, res.account_locked, res.contract);
+            this.user = new User(res.id, res.user_auth_level, res.employee_owner, res.affiliate_owner, res.created_on, res.email, res.first_name, res.middle_name, res.last_name, res.dob, res.mobile_phone, res.home_phone, res.business_phone, res.fax_number, res.ssn, res.street_address, res.city_address, res.state_address, res.zip_address, res.account_locked, res.contract, res.customer_id, res.customer_profile_id);
             localStorage.setItem('user', JSON.stringify(this.user));
         });
 

@@ -5,27 +5,27 @@ var ApiControllers = require('authorizenet').APIControllers;
 var MerchantConfig = require('./../merchant.config');
 
 function createCustomerPaymentProfile(customerProfileId, callback) {
-
+	customerProfileId = "1808388956";
     var merchantAuthenticationType = new ApiContracts.MerchantAuthenticationType();
     merchantAuthenticationType.setName(MerchantConfig.AUTHNET_API_LOGIN_ID);
     merchantAuthenticationType.setTransactionKey(MerchantConfig.AUTHNET_TRANSACTION_KEY);
 
 	var creditCard = new ApiContracts.CreditCardType();
-	creditCard.setCardNumber('4242424242424242');
+	creditCard.setCardNumber('4485150644232810');
 	creditCard.setExpirationDate('0822');
 
 	var paymentType = new ApiContracts.PaymentType();
 	paymentType.setCreditCard(creditCard);
 
 	var customerAddress = new ApiContracts.CustomerAddressType();
-	customerAddress.setFirstName('test');
-	customerAddress.setLastName('scenario');
-	customerAddress.setAddress('123 Main Street');
-	customerAddress.setCity('Bellevue');
-	customerAddress.setState('WA');
-	customerAddress.setZip('98004');
+	customerAddress.setFirstName('Nick');
+	customerAddress.setLastName('Diaz');
+	customerAddress.setAddress('123 Bravo St');
+	customerAddress.setCity('Saint Louis');
+	customerAddress.setState('MO');
+	customerAddress.setZip('61336');
 	customerAddress.setCountry('USA');
-	customerAddress.setPhoneNumber('000-000-0000');
+	customerAddress.setPhoneNumber('817-896-8570');
 
 	var profile = new ApiContracts.CustomerPaymentProfileType();
 	profile.setBillTo(customerAddress);

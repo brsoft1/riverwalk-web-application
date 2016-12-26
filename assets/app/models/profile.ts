@@ -13,11 +13,8 @@ export class Profile {
         public city_address: string,
         public state_address: string,
         public zip_address: string,
-        public cardName: string,
-        public cardType: string,
-        public cardNumber: string,
-        public expMonth: string,
-        public expYear: string,
-        public cvc: string
+        public customer_id: boolean,
+        public customer_profile_id: string
+
     ) {  }
 }
