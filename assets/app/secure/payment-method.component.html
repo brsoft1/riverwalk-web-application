@@ -13,11 +13,29 @@
                             <div class="card-block">
                                 <div class="row">
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label for="cardName">Name on Card</label>
+                                        <label for="firstName">First Name on Card</label>
                                         <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-credit-card"></i>
                       </span>
-                                            <input (blur)="cardNameValidate('Card Holder Name *Required', 'Enter the name as it appears on the card')" type="text" class="form-control" placeholder="Enter name on card" id="cardName" formControlName="cardName">
+                                            <input (blur)="firstNameValidate('Card Holder Name *Required', 'Enter the first name as it appears on the card')" type="text" class="form-control" placeholder="Enter first name on card" id="firstName" formControlName="firstName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-12 col-md-6">
+                                        <label for="lastName">Last Name on Card</label>
+                                        <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
+                      </span>
+                                            <input (blur)="lastNameValidate('Card Holder Name *Required', 'Enter the last name as it appears on the card')" type="text" class="form-control" placeholder="Enter last name on card" id="lastName" formControlName="lastName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-12 col-md-6">
+                                        <label for="cardNumber">Credit Card number</label>
+                                        <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
+                      </span>
+                                            <input (blur)="cardNumberValidate('Card Number *Required', 'Enter the card number with no spaces')" type="text" class="form-control" placeholder="Enter your credit card number" id="cardNumber" formControlName="cardNumber">
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-12 col-md-6">
@@ -28,16 +46,6 @@
                                             <select (blur)="cardTypeValidate('Credit Card Type *Required', 'Select the card type')" class="form-control" id="cardType" formControlName="cardType">
                                                 <option *ngFor="let cardType of cardTypes">{{cardType}}</option>
                                             </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-sm-12 col-md-12">
-                                        <label for="cardNumber">Credit Card number</label>
-                                        <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i>
-                      </span>
-                                            <input (blur)="cardNumberValidate('Card Number *Required', 'Enter the card number with no spaces')" type="text" class="form-control" placeholder="Enter your credit card number" id="cardNumber" formControlName="cardNumber">
                                         </div>
                                     </div>
                                 </div>

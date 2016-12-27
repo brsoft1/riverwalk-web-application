@@ -15,6 +15,5 @@ export class Profile {
         public zip_address: string,
         public customer_id: boolean,
         public customer_profile_id: string
-
     ) {  }
 }

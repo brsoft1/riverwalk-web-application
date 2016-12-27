@@ -17,7 +17,7 @@ export class PaymentMethodComponent implements OnInit {
     constructor( private router: Router, private auth: Auth, private http: Http, private toastyService: ToastyService, private toastyConfig: ToastyConfig  ) { }
 
     // Credit Card Form
-    payment = new Payment(this.auth.user.id, this.auth.user.email, '', '', '', '', '', '', '', '', '', '', this.auth.user.customer_profile_id);
+    payment = new Payment(this.auth.user.id, this.auth.user.email, '', '', '', '', '', '', '', '', '', '', '', this.auth.user.customer_profile_id);
     paymentActive = true;
     cardTypes = ['American Express', 'Discover', 'Master Card', 'Visa'];
     expMonths = ['January','February','March','April','May','June','July','August','September', 'October','November','December'];
@@ -25,12 +25,17 @@ export class PaymentMethodComponent implements OnInit {
     states = ['Select State', 'Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Federated States of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 
     ngOnInit() {
+        console.log(this.payment);
         this.creditCardForm = new FormGroup({
             id : new FormControl(this.auth.user.id,Validators.required ),
             email : new FormControl(this.auth.user.email,Validators.required ),
-            cardName: new FormControl(null,[
+            firstName: new FormControl(null,[
                 Validators.required,
-                Validators.pattern("^[a-zA-Zñáéíóúü' ]{1,30}$")
+                Validators.pattern("^[a-zA-Zñáéíóúü']{1,30}$")
+            ]),
+            lastName: new FormControl(null,[
+                Validators.required,
+                Validators.pattern("^[a-zA-Zñáéíóúü']{1,30}$")
             ]),
             cardType: new FormControl(null,[
                 Validators.required,
@@ -72,14 +77,21 @@ export class PaymentMethodComponent implements OnInit {
         });
     }
 
-    cardNameValidate(ErrorTitle, ErrorMessage) {
-        if (this.creditCardForm.get('cardName').status == VALID) {
-            this.toastSuccess("Card Name Entered", "Name entered correctly");
+    firstNameValidate(ErrorTitle, ErrorMessage) {
+        if (this.creditCardForm.get('firstName').status == VALID) {
+            this.toastSuccess("Card Name Entered", "First name entered correctly");
         } else {
             this.toastWarning(ErrorTitle, ErrorMessage);
         }
     }
 
+    lastNameValidate(ErrorTitle, ErrorMessage) {
+        if (this.creditCardForm.get('lastName').status == VALID) {
+            this.toastSuccess("Card Name Entered", "Last name entered correctly");
+        } else {
+            this.toastWarning(ErrorTitle, ErrorMessage);
+        }
+    }
     cardTypeValidate(ErrorTitle, ErrorMessage) {
         if (this.creditCardForm.get('cardType').status == VALID) {
             this.toastSuccess("Card Type Entered", "Card Type entered correctly");
@@ -162,7 +174,7 @@ export class PaymentMethodComponent implements OnInit {
             let headers = new Headers();
             headers.append('Content-Type', 'application/json');
             return this.http
-                .post('http://localhost:4200/api/updateCreditCard',
+                .post('http://localhost:4200/api/createPaymentMethod',
                     model,
                     {headers: headers})
                 .map((res: Response) => res.json())
