@@ -39,6 +39,7 @@ This product is owned by Wuno, Inc.
 ## Acknowledgments
 
 * Special thanks to Wuno, Inc. devs
+* Test message
 
 ## Development server
 Run `npm run build` to compile Typescript and set program to watch for changes. Then in a different terminal window run `npm start` for a dev server. Navigate to `http://localhost:4200/`.
