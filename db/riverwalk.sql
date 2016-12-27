@@ -10,41 +10,45 @@ CREATE DATABASE riverwalk
        LC_CTYPE = 'en_IN'
        CONNECTION LIMIT = -1;
 
--- Table: public.auth_level
+-- Table: public."user"
 
--- DROP TABLE public.auth_level;
+-- DROP TABLE public."user";
 
 CREATE TABLE public."user"
 (
-  id SERIAL NOT NULL,
-  user_auth_level integer,
-  employee_owner integer,
-  affiliate_owner integer,
-  created_on timestamp without time zone,
-  email text,
-  first_name text,
-  middle_name text,
-  last_name text,
-  dob timestamp without time zone,
-  mobile_phone text,
-  home_phone text,
-  ssn text,
-  street_address text,
-  city_address text,
-  state_address text,
-  zip_address text,
-  account_locked boolean NOT NULL,
-  contract boolean NOT NULL,
-  customer_id boolean NOT NULL,
-  customer_profile_id text,
-  CONSTRAINT pk_user_id PRIMARY KEY (id),
-  CONSTRAINT uk_user_email UNIQUE (email)
+    id integer NOT NULL DEFAULT nextval('user_id_seq'::regclass),
+    user_auth_level integer,
+    employee_owner integer,
+    affiliate_owner integer,
+    created_on timestamp without time zone,
+    email text COLLATE pg_catalog."default",
+    first_name text COLLATE pg_catalog."default",
+    middle_name text COLLATE pg_catalog."default",
+    last_name text COLLATE pg_catalog."default",
+    dob timestamp without time zone,
+    mobile_phone text COLLATE pg_catalog."default",
+    home_phone text COLLATE pg_catalog."default",
+    business_phone text COLLATE pg_catalog."default",
+    fax_number text COLLATE pg_catalog."default",
+    ssn text COLLATE pg_catalog."default",
+    street_address text COLLATE pg_catalog."default",
+    city_address text COLLATE pg_catalog."default",
+    state_address text COLLATE pg_catalog."default",
+    zip_address text COLLATE pg_catalog."default",
+    account_locked boolean NOT NULL,
+    contract boolean NOT NULL,
+    customer_id boolean NOT NULL DEFAULT false,
+    customer_profile_id text COLLATE pg_catalog."default",
+    CONSTRAINT pk_user_id PRIMARY KEY (id),
+    CONSTRAINT uk_user_email UNIQUE (email)
 )
 WITH (
-  OIDS=FALSE
-);
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
 ALTER TABLE public."user"
-  OWNER TO postgres;
+    OWNER to postgres;
 
 -- Table: public.partner
 
@@ -76,30 +80,24 @@ ALTER TABLE public.partner
 
 CREATE TABLE public.credit_cards
 (
-  id integer NOT NULL,
-  user_id integer NOT NULL,
-  card_name text NOT NULL,
-  card_type text NOT NULL,
-  card_number text NOT NULL,
-  card_exp text NOT NULL,
-  card_code text NOT NULL,
-  renew_date timestamp without time zone NOT NULL,
-  renew_amount numeric NOT NULL,
-  card_primary boolean NOT NULL,
-  CONSTRAINT pk_credit_cards_id PRIMARY KEY (id),
-  CONSTRAINT credit_cards_user_id_fkey FOREIGN KEY (user_id)
-      REFERENCES public."user" (id) MATCH SIMPLE
-      ON UPDATE CASCADE ON DELETE CASCADE
+    id integer NOT NULL DEFAULT nextval('credit_cards_id_seq'::regclass),
+    user_id integer NOT NULL,
+    user_email text COLLATE pg_catalog."default",
+    customer_profile_id text COLLATE pg_catalog."default",
+    customer_payment_profile_id text COLLATE pg_catalog."default",
+    CONSTRAINT pk_credit_cards_id PRIMARY KEY (id),
+    CONSTRAINT credit_cards_user_id_fkey FOREIGN KEY (user_id)
+        REFERENCES public."user" (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 )
 WITH (
-  OIDS=FALSE
-);
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
 ALTER TABLE public.credit_cards
-  OWNER TO postgres;
-
--- Table: public.contracts
-
--- DROP TABLE public.contracts;
+    OWNER to postgres;
 
 CREATE TABLE public.contracts
 (
